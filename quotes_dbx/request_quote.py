@@ -1,7 +1,11 @@
 import os
 
 import requests
+from config_logging import get_logger
 from dotenv import load_dotenv
+
+logger = get_logger(__name__)
+
 
 # Load Enviroment Variables
 load_dotenv()
@@ -17,7 +21,9 @@ def extract_quote():
     if response.status_code == requests.codes.ok:
         print(response.text)
     else:
-        print("Error:", response.status_code, response.text)
+        logger.error(
+            "Status Code: %s - Reason: %s", response.status_code, response.text
+        )
 
 
 def main():
