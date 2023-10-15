@@ -4,6 +4,7 @@ import random as rd
 from datetime import datetime
 
 import requests
+from databricks.sdk.runtime import dbutils
 from dotenv import load_dotenv
 
 from quotes_dbx.config_logging import get_logger
@@ -81,7 +82,7 @@ def extract_quote() -> list[dict]:
         )
 
 
-def save_to_storage(path_dbfs: str, data: list) -> None:
+def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
     """
     Save a list of data as a JSON file to a specified location.
 
@@ -99,8 +100,8 @@ def save_to_storage(path_dbfs: str, data: list) -> None:
     Example:
         save_to_storage("/dbfs/data/", [1, 2, 3])
     """
-    json_formatted = json.dumps(data, indent=4, sort_keys=True)
-    json_datetime = f"{path_dbfs}data_json_{datetime.now().timestamp()}"
+    json_formatted = json.dumps(data)
+    json_datetime = f"{path_dbfs}/data_json_{datetime.now().timestamp()}"
     try:
         dbutils.fs.put(json_datetime, json_formatted)
         logger.info("Saved to %s", path_dbfs)
