@@ -15,6 +15,7 @@ python-dotenv = "^1.0.0"
 [tool.poetry.group.dev.dependencies]
 dbx = "0.8.18"
 pytest = "^7.4.2"
+pytest-mock = "^3.11.1"
 
 [build-system]
 requires = ["poetry-core"]
