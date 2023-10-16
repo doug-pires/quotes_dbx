@@ -113,7 +113,7 @@ def main():
     # It will be my entrypoint
     quote = extract_quote()
     print(quote)
-    # save_to_storage(path_dbfs="/mnt/json_dbx/", data=quote)
+    save_to_storage(path_dbfs="/mnt/json_dbx/", data=quote)
 
 
 if __name__ == "__main__":
