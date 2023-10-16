@@ -603,6 +603,21 @@ dev = ["MarkupSafe (>=2.1.1,<3.0.0)", "black (>=22.3.0,<23.0.0)", "mccabe (==0.6
 gcp = ["google-cloud-storage (>=2.6.0,<3.0.0)"]
 
 [[package]]
+name = "delta-spark"
+version = "2.4.0"
+description = "Python APIs for using Delta Lake with Apache Spark"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "delta-spark-2.4.0.tar.gz", hash = "sha256:ef776e325e80d98e3920cab982c747b094acc46599d62dfcdc9035fb112ba6a9"},
+    {file = "delta_spark-2.4.0-py3-none-any.whl", hash = "sha256:7204142a97ef16367403b020d810d0c37f4ae8275b4997de4056423cf69b3a4b"},
+]
+
+[package.dependencies]
+importlib-metadata = ">=1.0.0"
+pyspark = ">=3.4.0,<3.5.0"
+
+[[package]]
 name = "entrypoints"
 version = "0.4"
 description = "Discover and load entry points from installed packages."
@@ -1079,6 +1094,17 @@ files = [
 ]
 
 [[package]]
+name = "py4j"
+version = "0.10.9.7"
+description = "Enables Python programs to dynamically access arbitrary Java objects"
+optional = false
+python-versions = "*"
+files = [
+    {file = "py4j-0.10.9.7-py2.py3-none-any.whl", hash = "sha256:85defdfd2b2376eb3abf5ca6474b51ab7e0de341c75a02f46dc9b5976f5a5c1b"},
+    {file = "py4j-0.10.9.7.tar.gz", hash = "sha256:0b6e5315bb3ada5cf62ac651d107bb2ebc02def3dee9d9548e3baac644ea8dbb"},
+]
+
+[[package]]
 name = "pycparser"
 version = "2.21"
 description = "C parser in Python"
@@ -1171,6 +1197,26 @@ crypto = ["cryptography (>=3.4.0)"]
 dev = ["coverage[toml] (==5.0.4)", "cryptography (>=3.4.0)", "pre-commit", "pytest (>=6.0.0,<7.0.0)", "sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "zope.interface"]
 docs = ["sphinx (>=4.5.0,<5.0.0)", "sphinx-rtd-theme", "zope.interface"]
 tests = ["coverage[toml] (==5.0.4)", "pytest (>=6.0.0,<7.0.0)"]
+
+[[package]]
+name = "pyspark"
+version = "3.4.0"
+description = "Apache Spark Python API"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "pyspark-3.4.0.tar.gz", hash = "sha256:167a23e11854adb37f8602de6fcc3a4f96fd5f1e323b9bb83325f38408c5aafd"},
+]
+
+[package.dependencies]
+py4j = "0.10.9.7"
+
+[package.extras]
+connect = ["googleapis-common-protos (>=1.56.4)", "grpcio (>=1.48.1)", "grpcio-status (>=1.48.1)", "numpy (>=1.15)", "pandas (>=1.0.5)", "pyarrow (>=1.0.0)"]
+ml = ["numpy (>=1.15)"]
+mllib = ["numpy (>=1.15)"]
+pandas-on-spark = ["numpy (>=1.15)", "pandas (>=1.0.5)", "pyarrow (>=1.0.0)"]
+sql = ["numpy (>=1.15)", "pandas (>=1.0.5)", "pyarrow (>=1.0.0)"]
 
 [[package]]
 name = "pytest"
@@ -1659,4 +1705,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "0aac891fd7a3523e55d3f9124d746e53cdd2cba0a011fd5ac40f9369136be405"
+content-hash = "b7b48700a2922b59f049f524d422173e1495910c10495418f6a4f113f97edd54"

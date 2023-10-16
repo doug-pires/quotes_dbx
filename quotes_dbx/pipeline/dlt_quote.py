@@ -1,8 +1,9 @@
 # Databricks notebook source
 import dlt
 import pyspark.sql.functions as F
-from pyspark.sql import DataFrame, Column
-from 
+from pyspark.sql import Column, DataFrame
+
+from quotes_dbx.common import add_metadata_cols
 
 # COMMAND ----------
 
@@ -25,8 +26,13 @@ options_quotes_df = {
 
 # COMMAND ----------
 
+
 @dlt.table(comment="Ingestion Quote data to Delta Table Bronze")
 def bronze_table_quotes():
-    df = spark.readStream.format("cloudFiles").options(**options_quotes_df).load(path_landing_quotes_dbx)
+    df = (
+        spark.readStream.format("cloudFiles")
+        .options(**options_quotes_df)
+        .load(path_landing_quotes_dbx)
+    )
     df_quotes = df.transform(add_metadata_cols)
     return df_quotes

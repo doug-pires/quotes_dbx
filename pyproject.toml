@@ -6,6 +6,11 @@ authors = ["doug-pires <dpiresmartins@yahoo.com.br>"]
 readme = "README.md"
 packages = [{include = "quotes_dbx"}]
 
+# packages for local development and unit testing
+# please note that these packages are already available in DBR, there is no need to install them on DBR.
+# LOCAL_REQUIREMENTS = [ "pyspark==3.2.1","delta-spark==1.1.0","scikit-learn","pandas","mlflow"]
+
+
 [tool.poetry.dependencies]
 python = "^3.10"
 requests = "^2.31.0"
@@ -19,6 +24,11 @@ pytest = "^7.4.2"
 pytest-mock = "^3.11.1"
 black = "^23.9.1"
 isort = "^5.12.0"
+
+
+[tool.poetry.group.local.dependencies]
+pyspark = "3.4"
+delta-spark = "2.4"
 
 [build-system]
 requires = ["poetry-core"]
