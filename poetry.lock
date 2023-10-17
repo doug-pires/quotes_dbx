@@ -416,6 +416,17 @@ files = [
 ]
 
 [[package]]
+name = "chispa"
+version = "0.9.4"
+description = "Pyspark test helper library"
+optional = false
+python-versions = ">=3.7,<4.0"
+files = [
+    {file = "chispa-0.9.4-py3-none-any.whl", hash = "sha256:ba79aef7b45f524dbdb164f225f18401bc24f703abd486edc591e6fb216d2fd3"},
+    {file = "chispa-0.9.4.tar.gz", hash = "sha256:9b9d3c5c3096edd938fc96796897f02e46449e392b445efecfaabbc66b7d8d1f"},
+]
+
+[[package]]
 name = "click"
 version = "8.1.7"
 description = "Composable command line interface toolkit"
@@ -1705,4 +1716,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "b7b48700a2922b59f049f524d422173e1495910c10495418f6a4f113f97edd54"
+content-hash = "e7f6fd1f9051d7814b3f69c2b230acd71e7d29e448bc8492645f0f72f645e205"
