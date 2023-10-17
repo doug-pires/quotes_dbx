@@ -8,6 +8,7 @@ from databricks.sdk.runtime import dbutils
 from dotenv import load_dotenv
 
 from quotes_dbx.config_logging import get_logger
+from quotes_dbx.provide_config import path_landing_quotes_dbx
 
 logger = get_logger(__name__)
 
@@ -113,7 +114,7 @@ def main():
     # It will be my entrypoint
     quote = extract_quote()
     print(quote)
-    save_to_storage(path_dbfs="/mnt/json_dbx/", data=quote)
+    save_to_storage(path_dbfs=path_landing_quotes_dbx, data=quote)
 
 
 if __name__ == "__main__":

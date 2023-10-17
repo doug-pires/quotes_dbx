@@ -4,13 +4,7 @@ import pyspark.sql.functions as F
 from pyspark.sql import Column, DataFrame
 
 from quotes_dbx.common import add_metadata_cols
-
-# COMMAND ----------
-
-use_case = "dbx"
-path_landing_quotes_dbx = f"/mnt/landing/quotes_{use_case}"
-path_bronze_quotes = f"/mnt/{use_case}/bronze"
-path_schema_autoloader = f"/mnt/{use_case}"
+from quotes_dbx.provide_config import path_landing_quotes_dbx
 
 # COMMAND ----------
 
