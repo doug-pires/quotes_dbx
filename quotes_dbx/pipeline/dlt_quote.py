@@ -3,7 +3,7 @@ import dlt
 import pyspark.sql.functions as F
 from pyspark.sql import Column, DataFrame
 
-from quotes_dbx.common import add_metadata_cols
+from quotes_dbx.common import add_metadata_cols,add_hash_col
 from quotes_dbx.provide_config import path_landing_quotes_dbx,path_schema_autoloader
 
 # COMMAND ----------
@@ -34,14 +34,13 @@ def bronze_table_quotes():
 
 # COMMAND ----------
 
+cols_to_hash = ["quote","author","category"]
 
-@dlt.table(comment="Silver table, generating SK to uniquely identify unique quotes")
+# COMMAND ----------
+
+
+@dlt.table(comment="Silver table, generating SK to uniquely identify unique quotes concanating author, quote and category")
 def silver_quotes():
-    df = ( dlt.readstream("bronze_table_quotes") )
-    df_quotes_add_hash_key = df.transform(add_metadata_cols)
-    return df_quotes
-
-
-@dlt.table
-def filtered_data():
-  return dlt.read("taxi_raw").where(...)
+    df = ( dlt.read_stream("bronze_table_quotes") )
+    df_quotes_add_hash_key = df.transform(add_hash_col,cols_to_hash)
+    return df_quotes_add_hash_key
