@@ -1,3 +1,5 @@
+import pytest
+
 from quotes_dbx.request_quote import extract_quote, pick_random_category
 
 
@@ -43,3 +45,7 @@ def test_log_error_when_function_return_400(mocker, caplog):
         f"Status Code: {mock_response.status_code} - Reason: {mock_response.text}"
     )
     assert expected_log_message in caplog.text
+
+
+if __name__ == "__main__":
+    pytest.main()

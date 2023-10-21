@@ -70,3 +70,7 @@ def test_function_to_extract_metadata_from_dataframe(
 
     # Then assert the expected metadata cols were added
     assert expected_metadata_columns in df_with_metadata.columns
+
+
+if __name__ == "__main__":
+    pytest.main()
