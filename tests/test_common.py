@@ -1,8 +1,10 @@
+import hashlib
+
 import pytest
 from chispa import assert_df_equality
 from pyspark.sql.types import StringType, StructField, StructType
 
-from quotes_dbx.common import add_metadata_cols, cast_cols, drop_columns
+from quotes_dbx.common import add_hash_col, add_metadata_cols, cast_cols, drop_columns
 
 
 def test_if_function_dropped_the_list_columns(spark_session, dummy_data):
@@ -70,6 +72,30 @@ def test_function_to_extract_metadata_from_dataframe(
 
     # Then assert the expected metadata cols were added
     assert expected_metadata_columns in df_with_metadata.columns
+
+
+def test_if_hash_col_was_created(dummy_data, spark_session):
+    # Given the Data and Schema from Dummy Data
+    # We create the Dataframe Persons
+    # Having a list of columns to hash, we will hash using md5 from Pyspark
+    schema = dummy_data[0]
+    data = dummy_data[1]
+    df_persons = spark_session.createDataFrame(data=data, schema=schema)
+
+    # When the FIRST ROW containing values Douglas | 31 | Engineer | Brazil | True
+    # We will hash and compare the values
+    row_1 = "Douglas31EngineerBraziltrue"
+    expected_hash = hashlib.md5(row_1.encode()).hexdigest()
+
+    # When call the function to create one column and hash it
+    cols_to_be_hashed = df_persons.columns
+    df_w_col_hashed = df_persons.transform(add_hash_col, cols_to_hash=cols_to_be_hashed)
+    # Then we should have a col named `hash_col`
+
+    assert "hash_col" in df_w_col_hashed.columns
+
+    # Then we will check the first hash value for the values of the first row
+    assert expected_hash == df_w_col_hashed.collect()[0]["hash_col"]
 
 
 if __name__ == "__main__":

@@ -65,20 +65,23 @@ def cast_cols(df: DataFrame, cols_to_cast: dict[str, str]) -> DataFrame:
     return df
 
 
-def add_hash_col(df: DataFrame, cols_to_hash: list[str]) -> DataFrame:
+def add_hash_col(
+    df: DataFrame, cols_to_hash: list[str], new_col_name: str = "hash_col"
+) -> DataFrame:
     """
     Add a new column to the DataFrame that contains the hash value of the concatenated values of specified columns.
 
     Args:
         df (DataFrame): The input DataFrame to which the new column will be added.
         cols_to_hash (list[str]): A list of column names to be concatenated and hashed.
+        new_col_name (str, optional): The name of the new column to store the hash values. Defaults to "hash_col".
 
     Returns:
-        DataFrame: A new DataFrame with an additional column named 'hash_col' containing the hash values.
+        DataFrame: A new DataFrame with an additional column containing the hash values.
     """
     expr = [F.col(col_name) for col_name in cols_to_hash]
 
-    df = df.withColumn("hash_col", F.hash(F.concat(*expr)))
+    df = df.withColumn(new_col_name, F.md5(F.concat(*expr)))
     return df
 
 
