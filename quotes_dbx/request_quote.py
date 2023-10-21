@@ -102,7 +102,7 @@ def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
         save_to_storage("/dbfs/data/", [1, 2, 3])
     """
 
-    if not data is None:
+    if data is not None:
         json_formatted = json.dumps(data)
         json_datetime = f"{path_dbfs}/data_json_{datetime.now().timestamp()}"
         try:
@@ -119,5 +119,5 @@ def main():
     save_to_storage(path_dbfs=path_landing_quotes_dbx, data=quote)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()

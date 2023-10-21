@@ -85,7 +85,7 @@ def add_hash_col(
     return df
 
 
-def group_by(df: DataFrame, col: str):
+def group_by_counting_rows(df: DataFrame, col: str):
     """
     Group a DataFrame by a specified column and count the occurrences of each group.
 
@@ -100,7 +100,7 @@ def group_by(df: DataFrame, col: str):
     return df_grouped
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     cols_to_be_casted = {"age": "int", "is_married": "boolean"}
     keys = list(cols_to_be_casted.keys())
     print(keys)

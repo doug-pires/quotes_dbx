@@ -2,9 +2,15 @@ import hashlib
 
 import pytest
 from chispa import assert_df_equality
-from pyspark.sql.types import StringType, StructField, StructType
+from pyspark.sql.types import LongType, StringType, StructField, StructType
 
-from quotes_dbx.common import add_hash_col, add_metadata_cols, cast_cols, drop_columns
+from quotes_dbx.common import (
+    add_hash_col,
+    add_metadata_cols,
+    cast_cols,
+    drop_columns,
+    group_by_counting_rows,
+)
 
 
 def test_if_function_dropped_the_list_columns(spark_session, dummy_data):
@@ -96,6 +102,38 @@ def test_if_hash_col_was_created(dummy_data, spark_session):
 
     # Then we will check the first hash value for the values of the first row
     assert expected_hash == df_w_col_hashed.collect()[0]["hash_col"]
+
+
+def test_group_by_function_to_agg_country(dummy_data, spark_session):
+    # Give the dataframe_persons
+    schema = dummy_data[0]
+    data = dummy_data[1]
+    df_persons = spark_session.createDataFrame(data=data, schema=schema)
+
+    # We expect to have an aggragated df by country
+    expected_agg_fields = [
+        StructField("country", StringType(), nullable=True),
+        StructField("count", LongType(), nullable=True),
+    ]
+    schema_df_agg_by_country = StructType(expected_agg_fields)
+
+    data_country_agg = [("Germany", 2), ("Italy", 1), ("Brazil", 1)]
+
+    df_expected_agg_by_country = spark_session.createDataFrame(
+        data=data_country_agg, schema=schema_df_agg_by_country
+    )
+
+    # When we call the function to group_by over country
+    df_grouped_by_country = group_by_counting_rows(df=df_persons, col="country")
+
+    # Then need to return a simalar dataframe aggragated, using chispa the df equality
+    # We will IGNORE nullable and order, because our function DOES NOT care about Order and Nulls
+    assert_df_equality(
+        df_expected_agg_by_country,
+        df_grouped_by_country,
+        ignore_nullable=True,
+        ignore_row_order=True,
+    )
 
 
 if __name__ == "__main__":

@@ -24,7 +24,7 @@ def get_logger(logger_name: str):
     return logger
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     # Testing
     logger = get_logger("app_logger")
     logger.info("Hi from Logging!")
