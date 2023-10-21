@@ -12,11 +12,15 @@ use_case = "dbx"
 path_landing_quotes_dbx = f"/mnt/landing/quotes_{use_case}"
 path_bronze_quotes = f"/mnt/{use_case}/bronze"
 path_schema_autoloader = f"/mnt/{use_case}"
-display(dbutils.fs.ls(path_schema_autoloader))
+
 
 # COMMAND ----------
 
-display(dbutils.fs.ls("/mnt/dbx"))
+display(dbutils.fs.ls(path_landing_quotes_dbx))
+
+# COMMAND ----------
+
+dbutils.fs.rm("/mnt/landing/",True)
 
 # COMMAND ----------
 

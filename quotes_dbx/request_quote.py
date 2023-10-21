@@ -101,13 +101,15 @@ def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
     Example:
         save_to_storage("/dbfs/data/", [1, 2, 3])
     """
-    json_formatted = json.dumps(data)
-    json_datetime = f"{path_dbfs}/data_json_{datetime.now().timestamp()}"
-    try:
-        dbutils.fs.put(json_datetime, json_formatted)
-        logger.info("Saved to %s", path_dbfs)
-    except AttributeError as e:
-        logger.error(e)
+
+    if not data is None:
+        json_formatted = json.dumps(data)
+        json_datetime = f"{path_dbfs}/data_json_{datetime.now().timestamp()}"
+        try:
+            dbutils.fs.put(json_datetime, json_formatted)
+            logger.info("Saved to %s", path_dbfs)
+        except AttributeError as e:
+            logger.error(e)
 
 
 def main():
