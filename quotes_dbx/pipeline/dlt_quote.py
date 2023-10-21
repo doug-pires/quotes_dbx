@@ -4,24 +4,25 @@ import pyspark.sql.functions as F
 from pyspark.sql import Column, DataFrame
 
 from quotes_dbx.common import add_metadata_cols
-from quotes_dbx.provide_config import path_landing_quotes_dbx
+from quotes_dbx.provide_config import path_landing_quotes_dbx,path_schema_autoloader
 
 # COMMAND ----------
 
 options_quotes_df = {
     "format": "cloudFiles",
     "cloudFiles.format": "json",
-    # "cloudFiles.schemaLocation": path_schema_autoloader,
+    "cloudFiles.schemaLocation": path_schema_autoloader,
     "cloudFiles.schemaEvolutionMode": "addNewColumns",
     "InferSchema": "true",
+    # When Auto Loader infers the schema, a rescued data column is automatically added to your schema as _rescued_data. You can rename the column or include it in cases where you provide a schema by setting the option rescuedDataColumn.
     "cloudFiles.inferColumnTypes": "true",
-    "multiLine": "true",
+    "multiline": "true",
 }
 
 # COMMAND ----------
 
 
-@dlt.table(comment="Ingestion Quote data to Delta Table Bronze")
+@dlt.table(comment="Ingestion Quote data to Delta Table Bronze, adding metadata columns")
 def bronze_table_quotes():
     df = (
         spark.readStream.format("cloudFiles")
@@ -30,3 +31,17 @@ def bronze_table_quotes():
     )
     df_quotes = df.transform(add_metadata_cols)
     return df_quotes
+
+# COMMAND ----------
+
+
+@dlt.table(comment="Silver table, generating SK to uniquely identify unique quotes")
+def silver_quotes():
+    df = ( dlt.readstream("bronze_table_quotes") )
+    df_quotes_add_hash_key = df.transform(add_metadata_cols)
+    return df_quotes
+
+
+@dlt.table
+def filtered_data():
+  return dlt.read("taxi_raw").where(...)

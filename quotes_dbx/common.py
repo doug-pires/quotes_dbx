@@ -23,14 +23,12 @@ def add_metadata_cols(df: DataFrame) -> DataFrame:
     added if '_metadata' exists in the input DataFrame, or the original DataFrame if
     '_metadata' is not present.
     """
-    if "_metadata" in df.columns:
-        df = df.withColumn(
-            "file_modification_time", F.col("_metadata.file_modification_time")
-        ).withColumn("file_name", F.col("_metadata.file_name"))
+    df = df.withColumn(
+        "file_modification_time", F.col("_metadata.file_modification_time")
+    ).withColumn("file_name", F.col("_metadata.file_name"))
 
-        return df
-    else:
-        logger.info("No '_metadata' column to extract")
+    return df
+
 
 
 def drop_columns(df: DataFrame, cols_to_drop: list[str]) -> DataFrame:
