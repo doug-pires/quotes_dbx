@@ -66,6 +66,10 @@ def cast_cols(df: DataFrame, cols_to_cast: dict[str, str]) -> DataFrame:
     return df
 
 
+def add_hash_col(df: DataFrame, cols_to_hash: list[str]) -> DataFrame:
+    ...
+
+
 def group_by(df: DataFrame, col: str):
     """
     Group a DataFrame by a specified column and count the occurrences of each group.
