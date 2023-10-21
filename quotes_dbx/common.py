@@ -76,7 +76,9 @@ def add_hash_col(df: DataFrame, cols_to_hash: list[str]) -> DataFrame:
     Returns:
         DataFrame: A new DataFrame with an additional column named 'hash_col' containing the hash values.
     """
-    df = df.withColumn("hash_col", hash(concat(*[col(col_name) for col_name in cols_to_hash])))
+    expr = [F.col(col_name) for col_name in cols_to_hash]
+
+    df = df.withColumn("hash_col", F.hash(F.concat(*expr)))
     return df
 
 
