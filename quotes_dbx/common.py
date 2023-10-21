@@ -1,5 +1,5 @@
 import pyspark.sql.functions as F
-from pyspark.sql import Column, DataFrame
+from pyspark.sql import DataFrame
 
 from quotes_dbx.config_logging import get_logger
 
@@ -28,7 +28,6 @@ def add_metadata_cols(df: DataFrame) -> DataFrame:
     ).withColumn("file_name", F.col("_metadata.file_name"))
 
     return df
-
 
 
 def drop_columns(df: DataFrame, cols_to_drop: list[str]) -> DataFrame:
@@ -67,7 +66,8 @@ def cast_cols(df: DataFrame, cols_to_cast: dict[str, str]) -> DataFrame:
 
 
 def add_hash_col(df: DataFrame, cols_to_hash: list[str]) -> DataFrame:
-    ...
+    df.withColumn("hash_col", F.col(*cols_to_hash))
+    return df
 
 
 def group_by(df: DataFrame, col: str):
