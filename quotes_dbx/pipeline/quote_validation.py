@@ -46,3 +46,13 @@ save_to_storage(path_dbfs=path_landing_quotes_dbx,data=quote)
 
 # MAGIC %sql
 # MAGIC DROP CATALOG __databricks_internal CASCADE
+
+# COMMAND ----------
+
+import os
+
+print(os.getenv("API_KEY_NINJAS"))
+
+# COMMAND ----------
+
+
