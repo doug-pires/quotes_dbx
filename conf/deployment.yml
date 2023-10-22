@@ -1,7 +1,7 @@
 # Choose poetry to build the package
 
 build:
-   python: "poetry"
+  python: "poetry"
 
 # Custom section is used to store configurations that might be repetative.
 # Please read YAML documentation for details on how to use substitutions and anchors.
@@ -9,7 +9,7 @@ custom:
   basic-cluster-props: &basic-cluster-props
     spark_version: "13.3.x-scala2.12"
     spark_conf:
-      spark.databricks.delta.preview.enabled: 'true'
+      spark.databricks.delta.preview.enabled: "true"
     spark_env_vars:
       API_KEY_NINJAS: r7ERdL1aEYKBW+S4kgbUAQ==kjLyAm6iKjeXGon6
 
@@ -36,6 +36,24 @@ environments:
       #######################################################################################
       # this is an example job with single ETL task based on 2.1 API and wheel_task format #
       ######################################################################################
+
+      # Create Workflow DLT to be delopyed First
+      - name: "DLT_Quote"
+        # access_control_list:
+        #   - user_name: "d.martins@kigroup.de"
+        #     permission_level: "IS_OWNER"
+        workflow_type: "pipeline"
+        job_clusters:
+          - job_cluster_key: "basic-cluster"
+            <<: *basic-static-cluster
+        libraries:
+          - notebook:
+              path: "/Repos/d.martins@kigroup.de/quotes_dbx/quotes_dbx/pipeline/dlt_quote"
+        catalog: "catalog_quotes"
+        target: "quotes_dbx"
+        channel: "PREVIEW"
+
+        # Create Second Workflow to reference the DLT Deployed
       - name: "quotes_dbx_workflow"
         job_clusters:
           - job_cluster_key: "default"
@@ -51,7 +69,6 @@ environments:
               notebook_path: "/Repos/d.martins@kigroup.de/quotes_dbx/quotes_dbx/create_catalog_quotes"
 
           - task_key: "request_quote"
-            # <<: *basic-static-cluster
             job_cluster_key: "default"
             python_wheel_task:
               package_name: "quotes_dbx"
@@ -60,6 +77,11 @@ environments:
               - task_key: "setup_catalogs"
               # parameters: ["--conf-file", "file:fuse://conf/tasks/sample_etl_config.yml"]
 
+          - task_key: "Run_DLT"
+            pipeline_task:
+              pipeline_id: "pipeline://DLT_Quote"
+            depends_on:
+              - task_key: "request_quote"
 
       #############################################################
       # this is an example multitask job with notebook task       #
@@ -94,4 +116,3 @@ environments:
       #       job_cluster_key: "default"
       #       notebook_task:
       #         notebook_path: "/Repos/Staging/dbx/notebooks/sample_notebook"
-
