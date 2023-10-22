@@ -3,8 +3,8 @@ import dlt
 import pyspark.sql.functions as F
 from pyspark.sql import Column, DataFrame
 
-from quotes_dbx.common import add_metadata_cols,add_hash_col,group_by_counting_rows
-from quotes_dbx.provide_config import path_landing_quotes_dbx,path_schema_autoloader
+from quotes_dbx.common import add_hash_col, add_metadata_cols, group_by_counting_rows
+from quotes_dbx.provide_config import path_landing_quotes_dbx, path_schema_autoloader
 
 # COMMAND ----------
 
@@ -13,9 +13,27 @@ from quotes_dbx.provide_config import path_landing_quotes_dbx,path_schema_autolo
 
 # COMMAND ----------
 
-properties_bronze = {"layer" : "bronze","ownership":"Douglas Pires","department":"Data team","Is_PII":"False","freshness": "Daily"}
-properties_silver = {"layer" : "silver","ownership":"Douglas Pires","department":"Data team","Is_PII":"False","freshness": "Daily"}
-properties_gold = {"layer" : "gold","ownership":"Douglas Pires","department":"Data team","Is_PII":"False","freshness": "Daily"}
+properties_bronze = {
+    "layer": "bronze",
+    "ownership": "Douglas Pires",
+    "department": "Data team",
+    "Is_PII": "False",
+    "freshness": "Daily",
+}
+properties_silver = {
+    "layer": "silver",
+    "ownership": "Douglas Pires",
+    "department": "Data team",
+    "Is_PII": "False",
+    "freshness": "Daily",
+}
+properties_gold = {
+    "layer": "gold",
+    "ownership": "Douglas Pires",
+    "department": "Data team",
+    "Is_PII": "False",
+    "freshness": "Daily",
+}
 
 # COMMAND ----------
 
@@ -39,7 +57,10 @@ options_quotes_df = {
 # COMMAND ----------
 
 
-@dlt.table(comment="Ingestion Quote data to Delta Table Bronze, adding metadata columns",table_properties=properties_bronze)
+@dlt.table(
+    comment="Ingestion Quote data to Delta Table Bronze, adding metadata columns",
+    table_properties=properties_bronze,
+)
 def bronze_table_quotes():
     df = (
         spark.readStream.format("cloudFiles")
@@ -49,6 +70,7 @@ def bronze_table_quotes():
     df_quotes = df.transform(add_metadata_cols)
     return df_quotes
 
+
 # COMMAND ----------
 
 # MAGIC %md
@@ -56,13 +78,20 @@ def bronze_table_quotes():
 
 # COMMAND ----------
 
-cols_to_hash = ["quote","author","category"]
+cols_to_hash = ["quote", "author", "category"]
 
-@dlt.table(comment="Silver table, generating SK to uniquely identify unique quotes concatenating author, quote and category",table_properties=properties_silver)
+
+@dlt.table(
+    comment="Silver table, generating SK to uniquely identify unique quotes concatenating author, quote and category",
+    table_properties=properties_silver,
+)
 def silver_quotes():
-    df = ( dlt.read_stream("bronze_table_quotes") )
-    df_quotes_add_hash_key = df.transform(add_hash_col,cols_to_hash=cols_to_hash,new_col_name="hash_quote").select("quote","author","category","hash_quote")
+    df = dlt.read_stream("bronze_table_quotes")
+    df_quotes_add_hash_key = df.transform(
+        add_hash_col, cols_to_hash=cols_to_hash, new_col_name="hash_quote"
+    ).select("quote", "author", "category", "hash_quote")
     return df_quotes_add_hash_key
+
 
 # COMMAND ----------
 
@@ -71,17 +100,29 @@ def silver_quotes():
 
 # COMMAND ----------
 
-@dlt.table(comment="Gold Table, aggragated quotes by category",table_properties=properties_gold)
+
+@dlt.table(
+    comment="Gold Table, aggragated quotes by category",
+    table_properties=properties_gold,
+)
 def gold_aggregated():
-    df = ( dlt.read("silver_quotes") )
-    df_grouped_by_category = df.transform(group_by_counting_rows,col = "category")
+    df = dlt.read("silver_quotes")
+    df_grouped_by_category = df.transform(group_by_counting_rows, col="category")
     return df_grouped_by_category
+
 
 # COMMAND ----------
 
 col_to_duplicate_and_drop = "hash_quote"
-@dlt.table(comment="Gold Table, removing duplicates on hash_key that uniquely identify the quote",table_properties=properties_gold)
+
+
+@dlt.table(
+    comment="Gold Table, removing duplicates on hash_key that uniquely identify the quote",
+    table_properties=properties_gold,
+)
 def gold_quotes_for_report():
-    df = ( dlt.read("silver_quotes") )
-    df_gold = df.dropDuplicates([col_to_duplicate_and_drop]).drop(col_to_duplicate_and_drop)
+    df = dlt.read("silver_quotes")
+    df_gold = df.dropDuplicates([col_to_duplicate_and_drop]).drop(
+        col_to_duplicate_and_drop
+    )
     return df_gold
