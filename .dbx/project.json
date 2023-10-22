@@ -4,8 +4,8 @@
             "profile": "KIPROFILE",
             "storage_type": "mlflow",
             "properties": {
-                "workspace_directory": "/Shared/dbx/dbx",
-                "artifact_location": "dbfs:/Shared/dbx/projects/dbx"
+                "workspace_directory": "/Shared/dbx/quotes_dbx",
+                "artifact_location": "dbfs:/Shared/dbx/projects/quotes_dbx"
             }
         }
     },

@@ -39,16 +39,23 @@ environments:
 
       # Create Workflow DLT to be delopyed First
       - name: "DLT_Quote"
+        workflow_type: "pipeline"
         # access_control_list:
         #   - user_name: "d.martins@kigroup.de"
         #     permission_level: "IS_OWNER"
-        workflow_type: "pipeline"
-        job_clusters:
-          - job_cluster_key: "basic-cluster"
-            <<: *basic-static-cluster
+        clusters:
+          - label: "default"
+            autoscale:
+              min_workers: 1
+              max_workers: 2
+              mode: "ENHANCED"
+        # job_clusters:
+        #   - job_cluster_key: "basic-cluster"
+        #     <<: *basic-static-cluster
         libraries:
           - notebook:
               path: "/Repos/d.martins@kigroup.de/quotes_dbx/quotes_dbx/pipeline/dlt_quote"
+        edition: CORE
         catalog: "catalog_quotes"
         target: "quotes_dbx"
         channel: "PREVIEW"
