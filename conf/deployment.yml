@@ -1,0 +1,97 @@
+# Choose poetry to build the package
+
+build:
+   python: "poetry"
+
+# Custom section is used to store configurations that might be repetative.
+# Please read YAML documentation for details on how to use substitutions and anchors.
+custom:
+  basic-cluster-props: &basic-cluster-props
+    spark_version: "13.3.x-scala2.12"
+    spark_conf:
+      spark.databricks.delta.preview.enabled: 'true'
+    spark_env_vars:
+      API_KEY_NINJAS: r7ERdL1aEYKBW+S4kgbUAQ==kjLyAm6iKjeXGon6
+
+  basic-static-cluster: &basic-static-cluster
+    new_cluster:
+      <<: *basic-cluster-props
+      num_workers: 1
+      node_type_id: "Standard_DS3_v2"
+
+environments:
+  default:
+    workflows:
+      #######################################################################################
+      #   Example workflow for integration tests                                            #
+      #######################################################################################
+      # - name: "dbx-sample-tests"
+      #   tasks:
+      #     - task_key: "main"
+      #       <<: *basic-static-cluster
+      #       spark_python_task:
+      #           python_file: "file://tests/entrypoint.py"
+      #           # this call supports all standard pytest arguments
+      #           parameters: ["file:fuse://tests/integration", "--cov=dbx"]
+      #######################################################################################
+      # this is an example job with single ETL task based on 2.1 API and wheel_task format #
+      ######################################################################################
+      - name: "quotes_dbx_workflow"
+        job_clusters:
+          - job_cluster_key: "default"
+            <<: *basic-static-cluster
+        tasks:
+          - task_key: "setup_catalogs"
+            job_cluster_key: "default"
+            deployment_config:
+              no_package: true # we omit using package since code will be shipped directly from the Repo
+            # depends_on:
+            #   - task_key: "ml"
+            notebook_task:
+              notebook_path: "/Repos/d.martins@kigroup.de/quotes_dbx/quotes_dbx/create_catalog_quotes"
+
+          - task_key: "request_quote"
+            # <<: *basic-static-cluster
+            job_cluster_key: "default"
+            python_wheel_task:
+              package_name: "quotes_dbx"
+              entry_point: "request-quote" # take a look at the setup.py entry_points section for details on how to define an entrypoint
+            depends_on:
+              - task_key: "setup_catalogs"
+              # parameters: ["--conf-file", "file:fuse://conf/tasks/sample_etl_config.yml"]
+
+
+      #############################################################
+      # this is an example multitask job with notebook task       #
+      #############################################################
+      # - name: "dbx-sample-multitask"
+      #   job_clusters:
+      #     - job_cluster_key: "default"
+      #       <<: *basic-static-cluster
+      #   tasks:
+      #     - task_key: "etl"
+      #       job_cluster_key: "default"
+      #       spark_python_task:
+      #         python_file: "file://dbx/tasks/sample_etl_task.py"
+      #         parameters: [ "--conf-file", "file:fuse://conf/tasks/sample_etl_config.yml" ]
+      #     - task_key: "ml"
+      #       depends_on:
+      #         - task_key: "etl"
+      #       job_cluster_key: "default"
+      #       python_wheel_task:
+      #         package_name: "dbx"
+      #         entry_point: "ml"
+      #         parameters: [ "--conf-file", "file:fuse://conf/tasks/sample_ml_config.yml" ]
+      #     ###############################################################################
+      #     # this is an example task based on the notebook                               #
+      #     # Please note that first you'll need to add a Repo and commit notebook to it. #
+      #     ###############################################################################
+      #     - task_key: "notebook"
+      #       deployment_config:
+      #         no_package: true # we omit using package since code will be shipped directly from the Repo
+      #       depends_on:
+      #         - task_key: "ml"
+      #       job_cluster_key: "default"
+      #       notebook_task:
+      #         notebook_path: "/Repos/Staging/dbx/notebooks/sample_notebook"
+

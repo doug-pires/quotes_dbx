@@ -7,4 +7,4 @@
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC CREATE SCHEMA quotes_dbx;
+# MAGIC CREATE SCHEMA IF NOT EXISTS quotes_dbx;
