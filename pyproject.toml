@@ -15,8 +15,8 @@ packages = [{include = "quotes_dbx"}]
 python = "^3.10"
 requests = "^2.31.0"
 python-dotenv = "^1.0.0"
-databricks-sdk = "^0.11.0"
 dbx = "^0.8.18"
+databricks-sdk = "^0.11.0"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -37,7 +37,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-addopts = ["--strict-markers", "--strict-config", "-ra","-v","--setup-show","-s","--doctest-modules"]
+addopts = ["--strict-markers", "--strict-config", "-ra","-v","--setup-show","-s"]
 testpaths = ["tests"]
 
 [tool.coverage.report]
@@ -50,8 +50,6 @@ exclude_lines = [
 
 [tool.black]
 line-length = 88
-
-
 
 [tool.poetry.scripts]
 request-quote = "quotes_dbx.request_quote:main"

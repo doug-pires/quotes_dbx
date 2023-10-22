@@ -4,13 +4,18 @@ import random as rd
 from datetime import datetime
 
 import requests
-from databricks.sdk.runtime import dbutils
+from databricks.sdk import WorkspaceClient
 from dotenv import load_dotenv
 
 from quotes_dbx.config_logging import get_logger
 from quotes_dbx.provide_config import path_landing_quotes_dbx
 
 logger = get_logger(__name__)
+
+
+# Configure the Profile
+# Reading from the .databrickscfg
+w = WorkspaceClient(profile="KIPROFILE")
 
 
 # Load Enviroment Variables
@@ -106,7 +111,7 @@ def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
         json_formatted = json.dumps(data)
         json_datetime = f"{path_dbfs}/data_json_{datetime.now().timestamp()}"
         try:
-            dbutils.fs.put(json_datetime, json_formatted)
+            w.dbutils.fs.put(json_datetime, json_formatted)
             logger.info("Saved to %s", path_dbfs)
         except AttributeError as e:
             logger.error(e)
@@ -115,7 +120,6 @@ def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
 
 
 def main():  # pragma: no cover
-    # It will be my entrypoint
     quote = extract_quote()
     print(quote)
     save_to_storage(path_dbfs=path_landing_quotes_dbx, data=quote)
