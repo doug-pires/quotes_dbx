@@ -37,7 +37,7 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-addopts = ["--strict-markers", "--strict-config", "-ra","-v","--setup-show","-s"]
+addopts = ["--strict-markers", "--strict-config", "-ra","-v","--setup-show","-s","--doctest-modules"]
 testpaths = ["tests"]
 
 [tool.black]

@@ -1,6 +1,10 @@
 import pytest
 
-from quotes_dbx.request_quote import extract_quote, pick_random_category
+from quotes_dbx.request_quote import (
+    extract_quote,
+    pick_random_category,
+    save_to_storage,
+)
 
 
 def test_return_one_string_randomly_between_list_of_categories():
@@ -45,6 +49,22 @@ def test_log_error_when_function_return_400(mocker, caplog):
         f"Status Code: {mock_response.status_code} - Reason: {mock_response.text}"
     )
     assert expected_log_message in caplog.text
+
+
+def test_if_data_is_none_will_not_save_to_storage_and_let_user_know(caplog):
+    # Given the Data which is null and a path to save
+    data = None
+    path = "/mnt/fake/path"
+
+    # When we call the function to save to storage, the data will be None
+    save_to_storage(data=data, path_dbfs=path)
+
+    # Then the code must return a logging
+    # informing the data is None
+
+    expected_log_message = "Data returned None"
+    result_log = caplog.text
+    assert expected_log_message in result_log
 
 
 if __name__ == "__main__":

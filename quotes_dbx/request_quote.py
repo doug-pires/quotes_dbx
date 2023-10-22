@@ -110,9 +110,11 @@ def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
             logger.info("Saved to %s", path_dbfs)
         except AttributeError as e:
             logger.error(e)
+    else:
+        logger.info("Data returned None")
 
 
-def main():
+def main():  # pragma: no cover
     # It will be my entrypoint
     quote = extract_quote()
     print(quote)
