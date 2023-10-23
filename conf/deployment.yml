@@ -45,6 +45,11 @@ environments:
         #     permission_level: "IS_OWNER"
         clusters:
           - label: "default"
+            custom_tags:
+              project: "quotes_dbx"
+              install_date: "2023-10-23"
+              # in case to be `single node`
+              # num_workers: 1
             autoscale:
               min_workers: 1
               max_workers: 2
@@ -52,13 +57,18 @@ environments:
         # job_clusters:
         #   - job_cluster_key: "basic-cluster"
         #     <<: *basic-static-cluster
+        development: true
+        continous: false
+        photon: false
         libraries:
           - notebook:
               path: "/Repos/d.martins@kigroup.de/quotes_dbx/quotes_dbx/pipeline/dlt_quote"
         edition: CORE
         catalog: "catalog_quotes"
+        # In case we use Hive Metastore or Mount Point to ADLS / GCP / S3
+        # storage: "/path/to/dbfs/"
         target: "quotes_dbx"
-        channel: "PREVIEW"
+        channel: "CURRENT"
 
         # Create Second Workflow to reference the DLT Deployed
       - name: "quotes_dbx_workflow"
