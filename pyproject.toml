@@ -32,6 +32,12 @@ pytest-cov = "^4.1.0"
 pyspark = "3.4"
 delta-spark = "2.4"
 
+
+[tool.poetry.group.doc.dependencies]
+mkdocs-material = "^9.4.6"
+mkdocstrings = "^0.23.0"
+mkdocstrings-python = "^1.7.3"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
