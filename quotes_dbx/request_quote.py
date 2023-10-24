@@ -22,7 +22,8 @@ w = WorkspaceClient(profile="KIPROFILE")
 load_dotenv()
 
 # Get API Key
-API_KEY = os.getenv("API_KEY_NINJAS")
+API_KEY = w.dbutils.secrets.get(scope="api_keys", key="ninjas")
+# os.getenv("API_KEY_NINJAS")
 
 
 category_list = [

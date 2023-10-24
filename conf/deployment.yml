@@ -11,7 +11,7 @@ custom:
     spark_conf:
       spark.databricks.delta.preview.enabled: "true"
     spark_env_vars:
-      API_KEY_NINJAS: r7ERdL1aEYKBW+S4kgbUAQ==kjLyAm6iKjeXGon6
+      MY_VAR: "Hello from Enviroment Variable"
 
   basic-static-cluster: &basic-static-cluster
     new_cluster:
@@ -105,3 +105,5 @@ environments:
             spark_python_task:
               python_file: "file://quotes_dbx/dummy.py"
               # parameters: ["--conf-file", "file:fuse://conf/tasks/sample_etl_config.yml"]
+            depends_on:
+              - task_key: "Run_DLT"
