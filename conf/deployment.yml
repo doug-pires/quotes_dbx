@@ -19,24 +19,15 @@ custom:
       num_workers: 1
       node_type_id: "Standard_DS3_v2"
 
+  parrudo-cluster: &parrudo-cluster
+    new_cluster:
+      <<: *basic-cluster-props
+      num_workers: 1
+      node_type_id: "Standard_D8s_v3"
+
 environments:
   default:
     workflows:
-      #######################################################################################
-      #   Example workflow for integration tests                                            #
-      #######################################################################################
-      # - name: "dbx-sample-tests"
-      #   tasks:
-      #     - task_key: "main"
-      #       <<: *basic-static-cluster
-      #       spark_python_task:
-      #           python_file: "file://tests/entrypoint.py"
-      #           # this call supports all standard pytest arguments
-      #           parameters: ["file:fuse://tests/integration", "--cov=dbx"]
-      #######################################################################################
-      # this is an example job with single ETL task based on 2.1 API and wheel_task format #
-      ######################################################################################
-
       # Create Workflow DLT to be delopyed First
       - name: "DLT_Quote"
         workflow_type: "pipeline"
@@ -73,11 +64,14 @@ environments:
         # Create Second Workflow to reference the DLT Deployed
       - name: "quotes_dbx_workflow"
         job_clusters:
-          - job_cluster_key: "default"
+          - job_cluster_key: &default_cluster "default"
             <<: *basic-static-cluster
+          - job_cluster_key: &parrudo "parrudo"
+            <<: *parrudo-cluster
+
         tasks:
           - task_key: "setup_catalogs"
-            job_cluster_key: "default"
+            job_cluster_key: *default_cluster
             deployment_config:
               no_package: true # we omit using package since code will be shipped directly from the Repo
             # depends_on:
@@ -85,14 +79,17 @@ environments:
             notebook_task:
               notebook_path: "/Repos/d.martins@kigroup.de/quotes_dbx/quotes_dbx/create_catalog_quotes"
 
+            # task based on 2.1 API and wheel_task format
           - task_key: "request_quote"
-            job_cluster_key: "default"
+            job_cluster_key: *default_cluster
+
+            # if you're using python_wheel_task, you'll need the entrypoint or main function to be used in setup.py or in pyproject.toml
             python_wheel_task:
               package_name: "quotes_dbx"
               entry_point: "request-quote" # take a look at the setup.py entry_points section for details on how to define an entrypoint
+              # parameters: ["--conf-file", "file:fuse://conf/tasks/sample_etl_config.yml"]
             depends_on:
               - task_key: "setup_catalogs"
-              # parameters: ["--conf-file", "file:fuse://conf/tasks/sample_etl_config.yml"]
 
           - task_key: "Run_DLT"
             pipeline_task:
@@ -100,36 +97,11 @@ environments:
             depends_on:
               - task_key: "request_quote"
 
-      #############################################################
-      # this is an example multitask job with notebook task       #
-      #############################################################
-      # - name: "dbx-sample-multitask"
-      #   job_clusters:
-      #     - job_cluster_key: "default"
-      #       <<: *basic-static-cluster
-      #   tasks:
-      #     - task_key: "etl"
-      #       job_cluster_key: "default"
-      #       spark_python_task:
-      #         python_file: "file://dbx/tasks/sample_etl_task.py"
-      #         parameters: [ "--conf-file", "file:fuse://conf/tasks/sample_etl_config.yml" ]
-      #     - task_key: "ml"
-      #       depends_on:
-      #         - task_key: "etl"
-      #       job_cluster_key: "default"
-      #       python_wheel_task:
-      #         package_name: "dbx"
-      #         entry_point: "ml"
-      #         parameters: [ "--conf-file", "file:fuse://conf/tasks/sample_ml_config.yml" ]
-      #     ###############################################################################
-      #     # this is an example task based on the notebook                               #
-      #     # Please note that first you'll need to add a Repo and commit notebook to it. #
-      #     ###############################################################################
-      #     - task_key: "notebook"
-      #       deployment_config:
-      #         no_package: true # we omit using package since code will be shipped directly from the Repo
-      #       depends_on:
-      #         - task_key: "ml"
-      #       job_cluster_key: "default"
-      #       notebook_task:
-      #         notebook_path: "/Repos/Staging/dbx/notebooks/sample_notebook"
+          ########## Task using spark_python_task( API 2.0 )
+          - task_key: "dummy"
+            job_cluster_key: *parrudo
+
+            # if you're using spark_python_task, you'll need the __main__ block to start the code execution
+            spark_python_task:
+              python_file: "file://quotes_dbx/dummy.py"
+              # parameters: ["--conf-file", "file:fuse://conf/tasks/sample_etl_config.yml"]

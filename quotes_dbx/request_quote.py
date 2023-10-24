@@ -125,5 +125,5 @@ def main():  # pragma: no cover
     save_to_storage(path_dbfs=path_landing_quotes_dbx, data=quote)
 
 
-if __name__ == "__main__":  # pragma: no cover
-    main()
+# if __name__ == "__main__":  # pragma: no cover
+#     main()
