@@ -1,4 +1,10 @@
-# COMMAND ----------
+"""
+This variable stores the name of the Databricks profile to be used for authentication.
+Ensure that this profile is configured in the .databrickscfg file.
+"""
+profile_to_authenticate = "KIPROFILE"
+
+
 """
 Define the use case for the script.
 

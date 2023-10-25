@@ -6,12 +6,12 @@ import requests
 from databricks.sdk import WorkspaceClient
 
 from quotes.config_logging import get_stream_logger
-from quotes.provide_config import path_landing_quotes_dbx
+from quotes.provide_config import path_landing_quotes_dbx, profile_to_authenticate
 
 logger = get_stream_logger(__name__)
 
 
-def authenticate_databricks():
+def authenticate_databricks(profile):
     """
     Authenticate with Databricks using the specified profile.
 
@@ -32,7 +32,7 @@ def authenticate_databricks():
     # Reading from the
     # You can add your profile here configured in the file .databrickscfg
 
-    w = WorkspaceClient(profile="KIPROFILE")
+    w = WorkspaceClient(profile)
 
     return w
 
@@ -89,7 +89,7 @@ def extract_quote() -> list[dict]:
         quote = extract_quote()
     """
     # Get API Key
-    w = authenticate_databricks()
+    w = authenticate_databricks(profile_to_authenticate)
     API_KEY = w.dbutils.secrets.get(scope="api_keys", key="ninjas")
 
     category = pick_random_category(category_list)
@@ -124,7 +124,7 @@ def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
     """
 
     if data is not None:
-        w = authenticate_databricks()
+        w = authenticate_databricks(profile_to_authenticate)
         json_formatted = json.dumps(data)
         json_datetime = f"{path_dbfs}/data_json_{datetime.now().timestamp()}"
         try:

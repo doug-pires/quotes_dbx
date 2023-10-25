@@ -1,10 +1,6 @@
 import pytest
 
-from quotes.request_quote import (
-    extract_quote,
-    pick_random_category,
-    save_to_storage,
-)
+from quotes.request_quote import extract_quote, pick_random_category, save_to_storage
 
 
 def test_return_one_string_randomly_between_list_of_categories():
@@ -27,6 +23,9 @@ def test_if_quote_return_string_when_success(mocker):
     mock_response.json.return_value = ["This is a quote"]
     mocker.patch("requests.get", return_value=mock_response)
 
+    # Mock the authenticate_databricks function because I am not interested to test it
+    mocker.patch("quotes.request_quote.authenticate_databricks")
+
     # When we can the function and run succes
     quote = extract_quote()
 
@@ -35,11 +34,14 @@ def test_if_quote_return_string_when_success(mocker):
 
 
 def test_log_error_when_function_return_400(mocker, caplog):
-    # Given the response returning 400
+    # Given the response returning 400, because we are mocking it
     mock_response = mocker.Mock()
     mock_response.status_code = 400
     mock_response.text = "Bad Request"
     mocker.patch("requests.get", return_value=mock_response)
+
+    # Mock the authenticate_databricks function because I am not interested to test it
+    mocker.patch("quotes.request_quote.authenticate_databricks")
 
     # When we call the function will generate wrong status_code
     extract_quote()
