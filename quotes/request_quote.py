@@ -11,7 +11,7 @@ from quotes.provide_config import path_landing_quotes_dbx
 logger = get_stream_logger(__name__)
 
 
-def authenticate_databricks(current_profile: str):
+def authenticate_databricks():
     """
     Authenticate with Databricks using the specified profile.
 
@@ -32,14 +32,9 @@ def authenticate_databricks(current_profile: str):
     # Reading from the
     # You can add your profile here configured in the file .databrickscfg
 
-    w = WorkspaceClient(profile=current_profile)
+    w = WorkspaceClient(profile="KIPROFILE")
 
     return w
-
-
-# Get API Key
-API_KEY = w.dbutils.secrets.get(scope="api_keys", key="ninjas")
-# os.getenv("API_KEY_NINJAS")
 
 
 category_list = [
@@ -93,6 +88,10 @@ def extract_quote() -> list[dict]:
     Example:
         quote = extract_quote()
     """
+    # Get API Key
+    w = authenticate_databricks()
+    API_KEY = w.dbutils.secrets.get(scope="api_keys", key="ninjas")
+
     category = pick_random_category(category_list)
     api_url = f"https://api.api-ninjas.com/v1/quotes?category={category}"
     response = requests.get(api_url, headers={"X-Api-Key": API_KEY})
@@ -125,7 +124,7 @@ def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
     """
 
     if data is not None:
-        authenticate_databricks(profile="KIPROFILE")
+        w = authenticate_databricks()
         json_formatted = json.dumps(data)
         json_datetime = f"{path_dbfs}/data_json_{datetime.now().timestamp()}"
         try:
