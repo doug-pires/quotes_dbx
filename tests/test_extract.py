@@ -1,6 +1,6 @@
 import pytest
 
-from quotes_dbx.request_quote import (
+from quotes.request_quote import (
     extract_quote,
     pick_random_category,
     save_to_storage,
