@@ -11,11 +11,30 @@ from quotes.provide_config import path_landing_quotes_dbx
 logger = get_stream_logger(__name__)
 
 
-# Configure the Profile
-# Reading from the
-# You can add your profile here configured in the file .databrickscfg
-# Or add host and token as Databricks Secrets
-w = WorkspaceClient(profile="KIPROFILE")
+def authenticate_databricks(current_profile: str):
+    """
+    Authenticate with Databricks using the specified profile.
+
+    Parameters:
+        current_profile (str): The name of the Databricks profile to use for authentication.
+                                This profile should be configured in the file .databrickscfg.
+
+    You can add host and token as Databricks Secrets
+
+    Returns:
+        WorkspaceClient: An authenticated Databricks WorkspaceClient instance.
+
+    Example:
+        To authenticate using a profile named "KIPROFILE":
+        >>> client = authenticate_databricks("KIPROFILE")
+    """
+    # Configure the Profile
+    # Reading from the
+    # You can add your profile here configured in the file .databrickscfg
+
+    w = WorkspaceClient(profile=current_profile)
+
+    return w
 
 
 # Get API Key
@@ -106,6 +125,7 @@ def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
     """
 
     if data is not None:
+        authenticate_databricks(profile="KIPROFILE")
         json_formatted = json.dumps(data)
         json_datetime = f"{path_dbfs}/data_json_{datetime.now().timestamp()}"
         try:
