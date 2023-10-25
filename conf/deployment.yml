@@ -37,7 +37,7 @@ environments:
         clusters:
           - label: "default"
             custom_tags:
-              project: "quotes_dbx"
+              project: "quotes"
               install_date: "2023-10-23"
               # in case to be `single node`
               # num_workers: 1
@@ -53,7 +53,7 @@ environments:
         photon: false
         libraries:
           - notebook:
-              path: "/Repos/d.martins@kigroup.de/quotes_dbx/quotes_dbx/pipeline/dlt_quote"
+              path: "/Repos/d.martins@kigroup.de/quotes_dbx/quotes/pipeline/dlt_quote"
         edition: CORE
         catalog: "catalog_quotes"
         # In case we use Hive Metastore or Mount Point to ADLS / GCP / S3
@@ -77,7 +77,7 @@ environments:
             # depends_on:
             #   - task_key: "ml"
             notebook_task:
-              notebook_path: "/Repos/d.martins@kigroup.de/quotes_dbx/quotes_dbx/create_catalog_quotes"
+              notebook_path: "/Repos/d.martins@kigroup.de/quotes_dbx/quotes/create_catalog_quotes"
 
             # task based on 2.1 API and wheel_task format
           - task_key: "request_quote"
@@ -85,7 +85,7 @@ environments:
 
             # if you're using python_wheel_task, you'll need the entrypoint or main function to be used in setup.py or in pyproject.toml
             python_wheel_task:
-              package_name: "quotes_dbx"
+              package_name: "quotes"
               entry_point: "request-quote" # take a look at the setup.py entry_points section for details on how to define an entrypoint
               # parameters: ["--conf-file", "file:fuse://conf/tasks/sample_etl_config.yml"]
             depends_on:
@@ -103,7 +103,7 @@ environments:
 
             # if you're using spark_python_task, you'll need the __main__ block to start the code execution
             spark_python_task:
-              python_file: "file://quotes_dbx/dummy.py"
+              python_file: "file://quotes/dummy.py"
               # parameters: ["--conf-file", "file:fuse://conf/tasks/sample_etl_config.yml"]
             depends_on:
               - task_key: "Run_DLT"

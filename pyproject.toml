@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "quotes-dbx"
+name = "quotes"
 version = "0.1.0"
 description = ""
 authors = ["doug-pires <dpiresmartins@yahoo.com.br>"]
 readme = "README.md"
-packages = [{include = "quotes_dbx"}]
+packages = [{include = "quotes"}]
 
 # packages for local development and unit testing
 # please note that these packages are already available in DBR, there is no need to install them on DBR.
@@ -14,7 +14,6 @@ packages = [{include = "quotes_dbx"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 requests = "^2.31.0"
-python-dotenv = "^1.0.0"
 dbx = "^0.8.18"
 databricks-sdk = "^0.11.0"
 
