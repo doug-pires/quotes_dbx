@@ -57,4 +57,4 @@ exclude_lines = [
 line-length = 88
 
 [tool.poetry.scripts]
-request-quote = "quotes_dbx.request_quote:main"
+request-quote = "quotes.request_quote:main"
