@@ -1,0 +1,9 @@
+site_name: Quote Pipeline
+repo_url: https://github.com/doug-pires/quotes_dbx
+repo_name: doug-pires/quotes_dbx
+edit_uri: /tree/main/docs
+
+theme:
+  name: material
+  logo: &logo assets/quotes_logo.png
+  favicon: *logo
