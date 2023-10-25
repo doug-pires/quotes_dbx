@@ -1,0 +1,6 @@
+# Curiosity
+Using Repos - I could use  `Python Scripts` into the task and use All-purpose-Cluster ( With my enviroment variable )
+[What are workspace files? | Databricks on AWS](https://docs.databricks.com/en/files/workspace.html#work-with-python-and-r-modules)
+The best way to achieve this is to use [files in repos](https://docs.databricks.com/repos/work-with-notebooks-other-files.html?_gl=1*18h6cgh*_gcl_aw*R0NMLjE2OTY2MTQ0MTYuQ2p3S0NBanc0UDZvQmhCc0Vpd0FLWVZrcThLelVnRnNKRVNUOEc2RGpTQ2paQ1d3X1VnMG1ueENsemRHSXNjNEZJWUhwVE9TWUpDVWZSb0N2NTRRQXZEX0J3RQ..*_gcl_au*NzgwNzk1NDIzLjE2OTA1NTQyODk.*rs_ga*ZWZhMzgwNzYtM2ZkMi00NjM1LWJlMWMtNTUxNTQzNGViYWFj*rs_ga_PQSEQ3RZQC*MTY5NzU2MzE3ODQ4Ny4xMDkuMC4xNjk3NTYzMTgyLjYwLjAuMA..#work-with-python-and-r-modules) functionality that allows to expose Python files as normal Python modules that could be imported into Databricks notebooks or other Python code. DLT natively supports files in repos that allows [importing Python files as Python modules](https://docs.databricks.com/files/workspace-modules.html) (**please note, that when using files in repos, the two entries are ==added to the Python’s sys.path - one for repo root, and one for the current directory of the caller notebook).==**
+The method `transform` from dataframe is different from the FUNCTION transform imported from the `pyspark.sql.functions`
+* The method takes that

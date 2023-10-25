@@ -19,12 +19,6 @@ custom:
       num_workers: 1
       node_type_id: "Standard_DS3_v2"
 
-  parrudo-cluster: &parrudo-cluster
-    new_cluster:
-      <<: *basic-cluster-props
-      num_workers: 1
-      node_type_id: "Standard_D8s_v3"
-
 environments:
   default:
     workflows:
@@ -48,7 +42,7 @@ environments:
         # job_clusters:
         #   - job_cluster_key: "basic-cluster"
         #     <<: *basic-static-cluster
-        development: true
+        development: false
         continous: false
         photon: false
         libraries:
@@ -66,8 +60,6 @@ environments:
         job_clusters:
           - job_cluster_key: &default_cluster "default"
             <<: *basic-static-cluster
-          - job_cluster_key: &parrudo "parrudo"
-            <<: *parrudo-cluster
 
         tasks:
           - task_key: "setup_catalogs"
@@ -99,7 +91,7 @@ environments:
 
           ########## Task using spark_python_task( API 2.0 )
           - task_key: "dummy"
-            job_cluster_key: *parrudo
+            job_cluster_key: *default_cluster
 
             # if you're using spark_python_task, you'll need the __main__ block to start the code execution
             spark_python_task:

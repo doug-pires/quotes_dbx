@@ -3,7 +3,30 @@ repo_url: https://github.com/doug-pires/quotes_dbx
 repo_name: doug-pires/quotes_dbx
 edit_uri: /tree/main/docs
 
+nav:
+  - Home: index.md
+  - Curiosities: curiosity.md
+
 theme:
   name: material
+  palette:
+    scheme: default
+    primary: blue grey
+    accent: cyan
   logo: &logo assets/quotes_logo.png
   favicon: *logo
+  features:
+    - navigation.footer
+    # - header.autohide
+
+# Additional configuration
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/doug-pires
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/douglaspiresm/
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji
