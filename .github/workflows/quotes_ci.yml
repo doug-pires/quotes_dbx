@@ -50,4 +50,4 @@ jobs:
     name: Steps to Deploy the Source Code to Databricks
     steps:
       - name: Deploy to Databricks
-        run: echo "Project folder is ${{ vars.projectcode }}"
+        run: echo "Project folder is $projectcode"
