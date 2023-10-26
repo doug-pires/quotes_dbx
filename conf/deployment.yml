@@ -89,13 +89,13 @@ environments:
             depends_on:
               - task_key: "request_quote"
 
-          ########## Task using spark_python_task( API 2.0 )
-          - task_key: "dummy"
-            job_cluster_key: *default_cluster
+          # ########## Task using spark_python_task( API 2.0 )
+          # - task_key: "dummy"
+          #   job_cluster_key: *default_cluster
 
-            # if you're using spark_python_task, you'll need the __main__ block to start the code execution
-            spark_python_task:
-              python_file: "file://quotes/dummy.py"
-              # parameters: ["--conf-file", "file:fuse://conf/tasks/sample_etl_config.yml"]
-            depends_on:
-              - task_key: "Run_DLT"
+          #   # if you're using spark_python_task, you'll need the __main__ block to start the code execution
+          #   spark_python_task:
+          #     python_file: "file://quotes/dummy.py"
+          #     # parameters: ["--conf-file", "file:fuse://conf/tasks/sample_etl_config.yml"]
+          #   depends_on:
+          #     - task_key: "Run_DLT"

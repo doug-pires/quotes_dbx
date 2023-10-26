@@ -12,9 +12,6 @@ on:
 permissions:
   contents: read
 
-env:
-  projectcode: quotes
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -42,16 +39,14 @@ jobs:
         run: |
           echo $(ls)
 
-      - name: Test with pytest
+      - name: Run Pytest and Coverage
         run: |
-          poetry run pytest
-
-      - name: Run Pytest Coverage
-        run: |
-          poetry run pytest --cov=quotes --cov-fail-under=80 /tests
+          poetry run pytest --cov=quotes --cov-fail-under=80 tests/
 
   deploy:
     runs-on: ubuntu-latest
+    env:
+      projectcode: quotes
     name: Steps to Deploy the Source Code to Databricks
     steps:
       - name: Deploy to Databricks
