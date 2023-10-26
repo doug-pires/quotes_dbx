@@ -41,7 +41,7 @@ jobs:
 
       - name: Run Pytest and Coverage
         run: |
-          poetry run pytest --cov=quotes --cov-fail-under=80 tests/
+          poetry run pytest --cov=quotes --cov-report=term-missing --cov-fail-under=80 tests/
 
   deploy:
     runs-on: ubuntu-latest
