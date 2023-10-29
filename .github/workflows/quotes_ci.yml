@@ -4,14 +4,15 @@
 name: Quotes Pipeline
 
 on:
-  push:
-    branches: ["main"]
-    paths-ignore:
-      - "docs/**"
-  pull_request:
-    branches: ["main"]
-    paths-ignore:
-      - "docs/**"
+  # push:
+  #   branches: ["main"]
+  #   paths-ignore:
+  #     - "docs/**"
+  # pull_request:
+  #   branches: ["main"]
+  #   paths-ignore:
+  #     - "docs/**"
+  workflow_dispatch: true
 
 permissions:
   contents: read
