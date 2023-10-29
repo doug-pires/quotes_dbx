@@ -6,8 +6,12 @@ name: Quotes Pipeline
 on:
   push:
     branches: ["main"]
+    paths-ignore:
+      - "docs/**"
   pull_request:
     branches: ["main"]
+    paths-ignore:
+      - "docs/**"
 
 permissions:
   contents: read
@@ -60,7 +64,7 @@ jobs:
 
       - name: Validate .databrickscfg
         run: |
-          cat $(.databrickscfg)
+          echo $(cat .databrickscfg)
 
       - uses: actions/checkout@v3
       - name: Set up Python 3.10

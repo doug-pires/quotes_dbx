@@ -1,0 +1,1 @@
+::: quotes.config_logging
