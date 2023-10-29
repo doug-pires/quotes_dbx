@@ -11,7 +11,15 @@ from quotes.provide_config import path_landing_quotes_dbx, profile_to_authentica
 logger = get_stream_logger(__name__)
 
 
-w = WorkspaceClient(profile=profile_to_authenticate)
+def authenticate_databricks() -> WorkspaceClient:
+    """
+    Authenticate with Databricks using a specified profile.
+
+    This function creates a WorkspaceClient to authenticate with Databricks using the given profile
+    """
+    w = WorkspaceClient(profile=profile_to_authenticate)
+    return w
+
 
 category_list = [
     "age",
@@ -46,7 +54,7 @@ def pick_random_category(words_of_list: list) -> str:
     return rd.choice(words_of_list)
 
 
-def extract_quote() -> list[dict]:
+def extract_quote(workspace: WorkspaceClient) -> list[dict]:
     """
     Extract a quote from a remote API and return it as a list of dictionaries.
 
@@ -65,7 +73,7 @@ def extract_quote() -> list[dict]:
         quote = extract_quote()
     """
     # Get API Key
-    API_KEY = w.dbutils.secrets.get(scope="api_keys", key="ninjas")
+    API_KEY = workspace.dbutils.secrets.get(scope="api_keys", key="ninjas")
 
     category = pick_random_category(category_list)
     api_url = f"https://api.api-ninjas.com/v1/quotes?category={category}"
@@ -79,7 +87,9 @@ def extract_quote() -> list[dict]:
         )
 
 
-def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
+def save_to_storage(
+    workspace: WorkspaceClient, path_dbfs: str, data: list[dict]
+) -> None:
     """
     Save a list of data as a JSON file to a specified location.
 
@@ -102,7 +112,7 @@ def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
         json_formatted = json.dumps(data)
         json_datetime = f"{path_dbfs}/data_json_{datetime.now().timestamp()}"
         try:
-            w.dbutils.fs.put(json_datetime, json_formatted)
+            workspace.dbutils.fs.put(json_datetime, json_formatted)
             logger.info("Saved to %s", path_dbfs)
         except AttributeError as e:
             logger.error(e)
@@ -111,6 +121,7 @@ def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
 
 
 def main():  # pragma: no cover
-    quote = extract_quote(w=workspace)
+    w = authenticate_databricks()
+    quote = extract_quote(workspace=w)
     print(quote)
-    save_to_storage(w=workspace, path_dbfs=path_landing_quotes_dbx, data=quote)
+    save_to_storage(workspace=w, path_dbfs=path_landing_quotes_dbx, data=quote)

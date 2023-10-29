@@ -23,8 +23,11 @@ def test_if_quote_return_string_when_success(mocker):
     mock_response.json.return_value = ["This is a quote"]
     mocker.patch("requests.get", return_value=mock_response)
 
+    # Mock the authenticate_databricks function because I am not interested to test it
+    w_mock = mocker.patch("quotes.request_quote.authenticate_databricks")
+
     # When we can the function and run succes
-    quote = extract_quote()
+    quote = extract_quote(workspace=w_mock)
 
     # Then the type should be json
     assert isinstance(quote, list)
@@ -37,8 +40,11 @@ def test_log_error_when_function_return_400(mocker, caplog):
     mock_response.text = "Bad Request"
     mocker.patch("requests.get", return_value=mock_response)
 
+    # Mock the authenticate_databricks function because I am not interested to test it
+    w_mock = mocker.patch("quotes.request_quote.authenticate_databricks")
+
     # When we call the function will generate wrong status_code
-    extract_quote()
+    extract_quote(workspace=w_mock)
 
     # Then the log Message should be checked
     expected_log_message = (
@@ -47,13 +53,16 @@ def test_log_error_when_function_return_400(mocker, caplog):
     assert expected_log_message in caplog.text
 
 
-def test_if_data_is_none_will_not_save_to_storage_and_let_user_know(caplog):
+def test_if_data_is_none_will_not_save_to_storage_and_let_user_know(caplog, mocker):
     # Given the Data which is null and a path to save
     data = None
     path = "/mnt/fake/path"
 
+    # Mock the authenticate_databricks function because I am not interested to test it
+    w_mock = mocker.patch("quotes.request_quote.authenticate_databricks")
+
     # When we call the function to save to storage, the data will be None
-    save_to_storage(data=data, path_dbfs=path)
+    save_to_storage(workspace=w_mock, data=data, path_dbfs=path)
 
     # Then the code must return a logging
     # informing the data is None
