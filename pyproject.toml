@@ -51,6 +51,11 @@ exclude_lines = [
     "if __name__ == .__main__.:"
 ]
 
+[tool.coverage.run]
+omit = [
+    "quotes/create_catalog_quotes.py"
+]
+
 [tool.black]
 line-length = 88
 

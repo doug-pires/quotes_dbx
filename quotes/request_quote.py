@@ -11,31 +11,7 @@ from quotes.provide_config import path_landing_quotes_dbx, profile_to_authentica
 logger = get_stream_logger(__name__)
 
 
-def authenticate_databricks(profile):
-    """
-    Authenticate with Databricks using the specified profile.
-
-    Parameters:
-        current_profile (str): The name of the Databricks profile to use for authentication.
-                                This profile should be configured in the file .databrickscfg.
-
-    You can add host and token as Databricks Secrets
-
-    Returns:
-        WorkspaceClient: An authenticated Databricks WorkspaceClient instance.
-
-    Example:
-        To authenticate using a profile named "KIPROFILE":
-        >>> client = authenticate_databricks("KIPROFILE")
-    """
-    # Configure the Profile
-    # Reading from the
-    # You can add your profile here configured in the file .databrickscfg
-
-    w = WorkspaceClient(profile)
-
-    return w
-
+w = WorkspaceClient(profile=profile_to_authenticate)
 
 category_list = [
     "age",
@@ -89,7 +65,6 @@ def extract_quote() -> list[dict]:
         quote = extract_quote()
     """
     # Get API Key
-    w = authenticate_databricks(profile_to_authenticate)
     API_KEY = w.dbutils.secrets.get(scope="api_keys", key="ninjas")
 
     category = pick_random_category(category_list)
@@ -124,7 +99,6 @@ def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
     """
 
     if data is not None:
-        w = authenticate_databricks(profile_to_authenticate)
         json_formatted = json.dumps(data)
         json_datetime = f"{path_dbfs}/data_json_{datetime.now().timestamp()}"
         try:
@@ -137,6 +111,6 @@ def save_to_storage(path_dbfs: str, data: list[dict]) -> None:
 
 
 def main():  # pragma: no cover
-    quote = extract_quote()
+    quote = extract_quote(w=workspace)
     print(quote)
-    save_to_storage(path_dbfs=path_landing_quotes_dbx, data=quote)
+    save_to_storage(w=workspace, path_dbfs=path_landing_quotes_dbx, data=quote)

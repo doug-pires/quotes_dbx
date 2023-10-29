@@ -45,9 +45,18 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    needs: build
     env:
-      projectcode: quotes
-    name: Steps to Deploy the Source Code to Databricks
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
     steps:
-      - name: Deploy to Databricks
-        run: echo "Project folder is $projectcode"
+      - name: Generate .databrickscfg
+        run: |
+          $FILE_NAME=".databrickscfg"
+          echo "[DEFAULT]" > $FILE_NAME
+          echo "host = $DATABRICKS_HOST" >> $FILE_NAME
+          echo "token = $DATABRICKS_TOKEN" >> $FILE_NAME
+
+      - name: Validate .databrickscfg
+        run: |
+          cat $FILE_NAME
