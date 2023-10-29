@@ -51,11 +51,40 @@ def cast_cols(df: DataFrame, cols_to_cast: dict[str, str]) -> DataFrame:
 
     Args:
         df (DataFrame): The input DataFrame.
+
         cols_to_cast (dict[str, str]): A dictionary where keys are column names
             and values are the target data types for casting.
-            Example: {"col_1": "int", "col_2": "boolean"}
+
     Returns:
         DataFrame: A new DataFrame with specified columns cast to the target data types.
+
+    Example:
+        You can use this function to cast specific columns in a DataFrame.
+        ```python
+        from pyspark.sql import SparkSession
+        spark = SparkSession.builder.appName("example").getOrCreate()
+        data = [("John", "30", "true"), ("Alice", "25", "false")]
+        columns = ["name", "age", "is_student"]
+        df = spark.createDataFrame(data, columns)
+        df.show()
+        +-----+---+----------+
+        | name|age|is_student|
+        +-----+---+----------+
+        | John| 30| true|
+        |Alice| 25| false|
+        +-----+---+----------+
+
+        cast_types = {"age": "int", "is_student": "boolean"}
+        new_df = cast_cols(df, cast_types)
+        new_df.show()
+        +-----+---+----------+
+        | name|age|is_student|
+        +-----+---+----------+
+        | John| 30| true|
+        |Alice| 25| false|
+        +-----+---+----------+
+        ```
+
     """
     cols = list(cols_to_cast.keys())
 

@@ -1,1 +1,2 @@
 ::: quotes.common
+    handler: python

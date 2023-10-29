@@ -15,10 +15,12 @@ def get_stream_handler():
         logging.StreamHandler: A StreamHandler instance configured with the specified formatter and log level.
 
     Example:
-        handler = get_stream_handler()
-        logger = logging.getLogger(__name__)
-        logger.addHandler(handler)
-        logger.setLevel(logging.INFO)
+        ```python3
+            handler = get_stream_handler()
+            logger = logging.getLogger(__name__)
+            logger.addHandler(handler)
+            logger.setLevel(logging.INFO)
+        ```
     """
     stream_handler = logging.StreamHandler()
     # Add Formatter to Handlers
@@ -39,9 +41,11 @@ def get_stream_logger(logger_name: str):
         logging.Logger: A Logger instance configured with the specified name, log level, and a StreamHandler.
 
     Example:
-        logger = get_logger('my_logger')
-        logger.info('This is an informational message')
-        logger.error('This is an error message')
+        ```python3
+            logger = get_logger('my_logger')
+            logger.info('This is an informational message')
+            logger.error('This is an error message')
+        ```
     """
     logger = logging.getLogger(logger_name)
     logger.setLevel(logging.INFO)

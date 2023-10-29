@@ -7,8 +7,8 @@ Build a simple data pipeline that extract famous quotes, process it and save on 
 - 🎯Goals: Deploy the pipeline into Databricks using different tools
 - Non-Goals : Be a complex pipeline
 - 🌟 Milestone: Follow best practices and principles
-- Main Audience: Other interested engineers and I.
-- Bonus : YAML file for CI/CD in GitHub Actions or Azure DevOps
+- 🫂 Main Audience: Other interested engineers and I.
+- 🔥 Bonus : YAML file for CI/CD in GitHub Actions or Azure DevOps
 
 ## Requirements
 

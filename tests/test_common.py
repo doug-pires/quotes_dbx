@@ -92,8 +92,8 @@ def test_function_to_extract_metadata_from_dataframe(
     """When we call the function to add columns to extract the metadata
     List of Metadata Columns I want to check
 
-    # Example to check
-    https://docs.databricks.com/en/ingestion/file-metadata-column.html"""
+    # Example:
+        https://docs.databricks.com/en/ingestion/file-metadata-column.html"""
     df_with_metadata = df_countries.transform(add_metadata_cols)
 
     """Then assert the expected metadata cols were added"""
