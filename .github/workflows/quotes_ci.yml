@@ -78,7 +78,7 @@ jobs:
 
       - name: Install dependencies to deploy
         run: |
-          poetry install --only-root
+          poetry install --without dev,doc
 
       - name: Deploy to Databricks
         run: |
