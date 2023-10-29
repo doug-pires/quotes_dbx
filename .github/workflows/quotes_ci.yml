@@ -52,7 +52,7 @@ jobs:
     steps:
       - name: Generate .databrickscfg
         run: |
-          $FILE_NAME=".databrickscfg"
+          FILE_NAME=".databrickscfg"
           echo "[DEFAULT]" > $FILE_NAME
           echo "host = $DATABRICKS_HOST" >> $FILE_NAME
           echo "token = $DATABRICKS_TOKEN" >> $FILE_NAME
