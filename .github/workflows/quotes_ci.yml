@@ -19,6 +19,8 @@ permissions:
 
 jobs:
   build:
+    env:
+      API_NEY_NINJAS: ${{ secrets.API_KEY_NINJAS }}
     runs-on: ubuntu-latest
 
     steps:

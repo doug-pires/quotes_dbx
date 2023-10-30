@@ -4,6 +4,23 @@ Ensure that this profile is configured in the .databrickscfg file.
 """
 profile_to_authenticate = "KIPROFILE"
 
+"""
+List available categories to extract quotes
+
+"""
+category_list = [
+    "age",
+    "alone",
+    "amazing",
+    "anger",
+    "architecture",
+    "art",
+    "attitude",
+    "beauty",
+    "best",
+    "birthday",
+]
+
 
 """
 Define the use case for the script.

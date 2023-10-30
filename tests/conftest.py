@@ -1,3 +1,5 @@
+import os
+
 import pytest
 from pyspark.sql import SparkSession
 from pyspark.sql.types import (
@@ -16,6 +18,17 @@ def spark_session() -> SparkSession:
     PyTest fixture for creating a SparkSession.
 
     This fixture creates a SparkSession and automatically closes it at the end of the test session.
+
+    Returns:
+        SparkSession: An instance of SparkSession ready for use in tests.
+
+    Example:
+        ```python
+        def test_spark_operations(spark_session):
+            # Perform Spark operations using the provided SparkSession.
+            df = spark_session.read.csv("test_data.csv")
+            assert df.count() > 0
+        ```
     """
     # Create a SparkSession
     spark = (
@@ -36,6 +49,20 @@ def spark_session() -> SparkSession:
 
 @pytest.fixture(scope="session")
 def dummy_data() -> list:
+    """
+    PyTest fixture for providing dummy data as a list.
+
+    Returns:
+        list: A list containing the data schema and data rows.
+
+    Example:
+        ```python
+        def test_data_processing(dummy_data):
+            schema, data = dummy_data
+            # Perform data processing using the provided schema and data.
+            assert len(data) > 0
+        ```
+    """
     fields = [
         StructField("name", StringType(), nullable=True),
         StructField("age", IntegerType(), nullable=True),
@@ -57,8 +84,20 @@ def dummy_data() -> list:
 
 @pytest.fixture(scope="session")
 def dummy_metadata_data() -> list:
-    # Returns list[ schema , data ]
-    # Sample data for the "_metadata" column as a JSON string
+    """
+    PyTest fixture for providing dummy data with metadata as a list.
+
+    Returns:
+        list: A list containing the data schema and data rows with metadata.
+
+    Example:
+        ```python
+        def test_metadata_processing(dummy_metadata_data):
+            schema, data = dummy_metadata_data
+            # Perform metadata processing using the provided schema and data with metadata.
+            assert len(data) > 0
+        ```
+    """
     data = [
         {
             "country": "USA",
@@ -77,6 +116,7 @@ def dummy_metadata_data() -> list:
             },
         },
     ]
+
     # Define the schema for the DataFrame
     schema = StructType(
         [
@@ -88,3 +128,45 @@ def dummy_metadata_data() -> list:
     )
 
     return [schema, data]
+
+
+@pytest.fixture(scope="function")
+def mock_authentication_databricks(mocker):
+    """
+    Mock the authentication function for Databricks.
+
+    This function provides a mock object for the authentication function used in Databricks integration.
+    REMEMBER:When it comes to mocking, we ALWAYS mock where the function is USED. Even though the `authenticate_databricks()` is from other module
+    Args:
+        mocker: The mocker object provided by PyTest for mocking.
+
+    Returns:
+        Mock: A mocked authentication function.
+
+    Example:
+        ```python
+        def test_databricks_integration(mock_authentication_databricks):
+            # Test Databricks integration with authentication mock.
+            mock_authentication_databricks.return_value = "Authentication Successful"
+            result = databricks_integration()
+            assert result == "Authentication Successful"
+        ```
+    """
+    path_to_mock = "quotes.request_quote.authenticate_databricks"
+
+    w_mock = mocker.patch(path_to_mock)
+    return w_mock
+
+
+@pytest.fixture(scope="function")
+def api_key_mock_local(mocker):
+    # api_key = os.getenv("API_KEY_NINJAS")
+    path_to_mock = "quotes.request_quote.get_api_key"
+    mock_api_key = mocker.patch(path_to_mock, api_key="44sa5adaKey")
+    return mock_api_key
+
+
+@pytest.fixture(scope="session")
+def api_key_integration():
+    api_key = os.getenv("API_KEY_NINJAS")
+    return api_key

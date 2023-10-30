@@ -6,7 +6,11 @@ import requests
 from databricks.sdk import WorkspaceClient
 
 from quotes.config_logging import get_stream_logger
-from quotes.provide_config import path_landing_quotes_dbx, profile_to_authenticate
+from quotes.provide_config import (
+    category_list,
+    path_landing_quotes_dbx,
+    profile_to_authenticate,
+)
 
 logger = get_stream_logger(__name__)
 
@@ -21,18 +25,29 @@ def authenticate_databricks() -> WorkspaceClient:
     return w
 
 
-category_list = [
-    "age",
-    "alone",
-    "amazing",
-    "anger",
-    "architecture",
-    "art",
-    "attitude",
-    "beauty",
-    "best",
-    "birthday",
-]
+def get_api_key(workspace: WorkspaceClient):
+    """
+    Retrieve an API key from Databricks secrets.
+
+    Args:
+        workspace (WorkspaceClient): An instance of the Databricks WorkspaceClient.
+
+    Returns:
+        str: The API key retrieved from Databricks secrets.
+
+    Raises:
+        KeyError: If the API key is not found in the specified secrets scope.
+
+    Example:
+    ```python
+    from databricks import WorkspaceClient
+    api_key = get_api_key(WorkspaceClient())
+    print(f"API Key: {api_key}")
+    ```
+    """
+    # Get API Key
+    API_KEY = workspace.dbutils.secrets.get(scope="api_keys", key="ninjas")
+    return API_KEY
 
 
 def pick_random_category(words_of_list: list) -> str:
@@ -54,32 +69,31 @@ def pick_random_category(words_of_list: list) -> str:
     return rd.choice(words_of_list)
 
 
-def extract_quote(workspace: WorkspaceClient) -> list[dict]:
+def extract_quote(API_KEY) -> list[dict]:
     """
-    Extract a quote from a remote API and return it as a list of dictionaries.
+    Extract a random quote from an API and return it as a list of dictionaries.
+
+    Args:
+        API_KEY (str): The API key for authentication.
 
     Returns:
-        list[dict]: A list of dictionaries representing the extracted quote.
+        list[dict]: A list of dictionaries containing the extracted quote.
 
     Raises:
-        Any exceptions raised by the underlying code when making the API request.
+        Exception: Any exception raised during the API request.
 
-    This function sends an HTTP GET request to a remote API to retrieve a quote. If the
-    API response has a successful status code (HTTP 200 OK), the response is parsed as JSON,
-    and the quote is returned as a list of dictionaries. If the API request fails, an error
-    is logged, including the status code and reason for the failure.
-
-    Example:
-        quote = extract_quote()
+    Note:
+        This function makes an API request to retrieve a random quote based on a selected category.
     """
-    # Get API Key
-    API_KEY = workspace.dbutils.secrets.get(scope="api_keys", key="ninjas")
-
-    category = pick_random_category(category_list)
+    category = pick_random_category(
+        category_list
+    )  # Assuming category_list is defined elsewhere
     api_url = f"https://api.api-ninjas.com/v1/quotes?category={category}"
     response = requests.get(api_url, headers={"X-Api-Key": API_KEY})
+
     if response.status_code == requests.codes.ok:
         quote = response.json()
+        logger.info("Extracted quote: %s", quote)
         return quote
     else:
         logger.error(
@@ -91,23 +105,22 @@ def save_to_storage(
     workspace: WorkspaceClient, path_dbfs: str, data: list[dict]
 ) -> None:
     """
-    Save a list of data as a JSON file to a specified location.
+    Save data as a JSON file to a specified location in Databricks DBFS.
 
     Args:
-        path_dbfs (str): The path where the JSON file will be saved.
-        data (list): The data to be saved in JSON format.
+        workspace (WorkspaceClient): The Databricks workspace client for interacting with DBFS.
+        path_dbfs (str): The destination path in Databricks DBFS.
+        data (list[dict]): The data to be saved as a JSON file.
 
     Returns:
         None
 
-    This function takes a list of data and saves it as a JSON file at the specified location.
-    It formats the data as JSON with indentation and sorts keys.
-    If the save operation is successful, it logs an info message. If an exception occurs, it logs an error.
+    Raises:
+        AttributeError: If there is an issue with the workspace client or file saving.
 
-    Example:
-        save_to_storage("/dbfs/data/", [1, 2, 3])
+    Note:
+        This function saves the provided data as a JSON file in Databricks DBFS.
     """
-
     if data is not None:
         json_formatted = json.dumps(data)
         json_datetime = f"{path_dbfs}/data_json_{datetime.now().timestamp()}"
@@ -122,6 +135,7 @@ def save_to_storage(
 
 def main():  # pragma: no cover
     w = authenticate_databricks()
-    quote = extract_quote(workspace=w)
+    API_KEY = get_api_key(workspace=w)
+    quote = extract_quote(workspace=w, API_KEY=API_KEY)
     print(quote)
     save_to_storage(workspace=w, path_dbfs=path_landing_quotes_dbx, data=quote)
