@@ -2,10 +2,10 @@
 
 ## Overview
 
-Build a simple data pipeline that extract famous quotes, process it and save on storage.
+Build a **simple** data pipeline that extract famous quotes, process it and save on storage.
 
-- 🎯Goals: Deploy the pipeline into Databricks using different tools
-- Non-Goals : Be a complex pipeline
+- 🎯Goals: Deploy the pipeline into Databricks
+- ⚠️ Non-Goals : Be a complex pipeline
 - 🌟 Milestone: Follow best practices and principles
 - 🫂 Main Audience: Other interested engineers and I.
 - 🔥 Bonus : YAML file for CI/CD in GitHub Actions or Azure DevOps
@@ -20,7 +20,7 @@ Build a simple data pipeline that extract famous quotes, process it and save on 
 | 4              | Test Coverage be higher than 80%                         |
 | 5              | Use Development Mix Mode ( Notebooks and Python Scripts) |
 | 6              | Self document code using Docstrings                      |
-| 7              | Documentation                                            |
+| 7              | Documentation with MkDocs                                |
 
 
 ## Design Considerations
@@ -90,7 +90,10 @@ Out-of-Scope ❌
 
 >Matthew Powers: [Testing PySpark Code - MungingData](https://mungingdata.com/pyspark/testing-pytest-chispa/)
 
->[What is a Medallion Architecture? (databricks.com)](https://www.databricks.com/glossary/medallion-architecture)
+> [What is Medallion or Multi-hop architecture?](https://www.databricks.com/glossary/medallion-architecture)
 
+> Gaurav Thalpati: [Design Docs for Data Platforms](https://medium.com/@gauravthalpati/design-document-for-data-platforms-932df482692d)
+
+> The Pragmatic Engineer: [RFC's & Design Docs](https://blog.pragmaticengineer.com/rfcs-and-design-docs/)
 
 > Eduardo Mendes : [(6) Documentado projetos com MkDocs - Live de Python #189 - YouTube](https://www.youtube.com/watch?v=GW6nAJ1NHUQ)

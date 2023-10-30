@@ -6,21 +6,26 @@ formatter = logging.Formatter(
 )
 
 
-# Create Handlers and set the ACCORDING LEVEL
-def get_stream_handler():
+def get_stream_handler() -> logging.StreamHandler:
     """
     Create and configure a logging StreamHandler with a specific formatter and log level.
 
     Returns:
-        logging.StreamHandler: A StreamHandler instance configured with the specified formatter and log level.
+        logging.StreamHandler: An instance of logging.StreamHandler configured with the specified formatter
+            and log level.
 
     Example:
-        ```python3
-            handler = get_stream_handler()
-            logger = logging.getLogger(__name__)
-            logger.addHandler(handler)
-            logger.setLevel(logging.INFO)
+        ```python
+        handler = get_stream_handler()
+        logger = logging.getLogger(__name__)
+        logger.addHandler(handler)
+        logger.setLevel(logging.INFO)
         ```
+
+    This function creates a logging StreamHandler, which directs log messages to the console (stdout).
+    It configures the StreamHandler with a predefined formatter and sets the log level to INFO by default.
+
+    Returns the configured StreamHandler, ready to be added to a logger for handling log messages.
     """
     stream_handler = logging.StreamHandler()
     # Add Formatter to Handlers
@@ -30,7 +35,7 @@ def get_stream_handler():
 
 
 # Create Logger and set its level
-def get_stream_logger(logger_name: str):
+def get_stream_logger(logger_name: str) -> logging.Logger:
     """
     Create and configure a logging logger with a specific name, log level, and a StreamHandler.
 
