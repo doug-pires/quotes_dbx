@@ -34,6 +34,7 @@ mkdocs-material = "^9.4.6"
 mkdocstrings = "^0.23.0"
 mkdocstrings-python = "^1.7.3"
 pymdown-extensions = "^10.3.1"
+mkdocs-macros-plugin = "^1.0.4"
 
 [build-system]
 requires = ["poetry-core"]

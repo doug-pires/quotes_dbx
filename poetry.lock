@@ -1075,6 +1075,27 @@ Markdown = ">=3.3"
 mkdocs = ">=1.1"
 
 [[package]]
+name = "mkdocs-macros-plugin"
+version = "1.0.4"
+description = "Unleash the power of MkDocs with macros and variables"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "mkdocs-macros-plugin-1.0.4.tar.gz", hash = "sha256:fc601f142b89cf98743b6b3608d5f93f24daf69b88cfa2320d503c83723c3c6d"},
+    {file = "mkdocs_macros_plugin-1.0.4-py3-none-any.whl", hash = "sha256:c8169443d17212e32df5ad68b562d901acc936d6e87f6b41139dcf13d6659890"},
+]
+
+[package.dependencies]
+jinja2 = "*"
+mkdocs = ">=0.17"
+python-dateutil = "*"
+pyyaml = "*"
+termcolor = "*"
+
+[package.extras]
+test = ["mkdocs-include-markdown-plugin", "mkdocs-macros-test", "mkdocs-material (>=6.2)"]
+
+[[package]]
 name = "mkdocs-material"
 version = "9.4.6"
 description = "Documentation that simply works"
@@ -1914,6 +1935,20 @@ files = [
 doc = ["reno", "sphinx", "tornado (>=4.5)"]
 
 [[package]]
+name = "termcolor"
+version = "2.3.0"
+description = "ANSI color formatting for output in terminal"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "termcolor-2.3.0-py3-none-any.whl", hash = "sha256:3afb05607b89aed0ffe25202399ee0867ad4d3cb4180d98aaf8eefa6a5f7d475"},
+    {file = "termcolor-2.3.0.tar.gz", hash = "sha256:b5b08f68937f138fe92f6c089b99f1e2da0ae56c52b78bf7075fd95420fd9a5a"},
+]
+
+[package.extras]
+tests = ["pytest", "pytest-cov"]
+
+[[package]]
 name = "text-unidecode"
 version = "1.3"
 description = "The most basic Text::Unidecode port"
@@ -2140,4 +2175,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "c528195174ec4531ca31b1ab4f1e4ff0ec78a943c49def48fa452916f66978ee"
+content-hash = "1e360ee9e89f26548d6745e98877f974ba0ac5829d8cc767e43c970f81e8a260"

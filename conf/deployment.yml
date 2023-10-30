@@ -32,7 +32,7 @@ environments:
           - label: "default"
             custom_tags:
               project: "quotes"
-              install_date: "2023-10-23"
+              owner: "Douglas Pires"
               # in case to be `single node`
               # num_workers: 1
             autoscale:

@@ -6,7 +6,9 @@ edit_uri: /tree/main/docs
 nav:
   - Home: index.md
   - Configuration Logging: logging.md
-  - Functions: common_functions.md
+  - Common Functions: common_functions.md
+  - Use Case Functions: use_case_functions.md
+  - References: references.md
   - Curiosities: curiosity.md
 
 theme:
@@ -22,6 +24,7 @@ theme:
     # - header.autohide
 
 plugins:
+  - macros
   - search
   - mkdocstrings
 # Additional configuration
@@ -31,6 +34,9 @@ extra:
       link: https://github.com/doug-pires
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/douglaspiresm/
+  # Jinja to include that {{ commands.run_dbx }}
+  commands:
+    run_dbx: poetry run dbx
 
 markdown_extensions:
   - attr_list
