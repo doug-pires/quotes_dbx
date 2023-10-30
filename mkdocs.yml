@@ -5,7 +5,7 @@ edit_uri: /tree/main/docs
 
 nav:
   - Home: index.md
-  - Configuration Logging: logging.md
+  - Logging Configuration: logging.md
   - Common Functions: common_functions.md
   - Use Case Functions: use_case_functions.md
   - References: references.md
@@ -21,6 +21,10 @@ theme:
   favicon: *logo
   features:
     - navigation.footer
+  icon:
+  previous: fontawesome/solid/angle-left
+  next:
+    fontawesome/solid/angle-right
     # - header.autohide
 
 plugins:

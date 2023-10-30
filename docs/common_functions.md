@@ -1,4 +1,4 @@
-# Common Functions Agnostics
+# Common Functions
 
     Functions that I can use in any use case
 
@@ -7,6 +7,6 @@
 {%include "templates/using_common_functions..md"%}
 
 ---
-# Common Functions
+# Common Functions -> Source Code :snake:
 ::: quotes.common
     handler: python
