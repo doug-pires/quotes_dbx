@@ -1,4 +1,4 @@
-# Design Document
+# Design Docs
 
 ## Overview
 
@@ -50,7 +50,7 @@ The orchestration will be done by Databricks Workflows
 ### Data Governance
 Out-of-Scope ❌
 
-Data Security
+### Data Security
 Out-of-Scope ❌
 
 
@@ -83,17 +83,3 @@ Out-of-Scope ❌
  - mkdocs
  - mkdocs-material
 
-
-
-## References
->Alex Ott : [Applying software development & DevOps best practices to Delta Live Table pipelines | Databricks Blog](https://www.databricks.com/blog/applying-software-development-devops-best-practices-delta-live-table-pipelines)
-
->Matthew Powers: [Testing PySpark Code - MungingData](https://mungingdata.com/pyspark/testing-pytest-chispa/)
-
-> [What is Medallion or Multi-hop architecture?](https://www.databricks.com/glossary/medallion-architecture)
-
-> Gaurav Thalpati: [Design Docs for Data Platforms](https://medium.com/@gauravthalpati/design-document-for-data-platforms-932df482692d)
-
-> The Pragmatic Engineer: [RFC's & Design Docs](https://blog.pragmaticengineer.com/rfcs-and-design-docs/)
-
-> Eduardo Mendes : [(6) Documentado projetos com MkDocs - Live de Python #189 - YouTube](https://www.youtube.com/watch?v=GW6nAJ1NHUQ)
