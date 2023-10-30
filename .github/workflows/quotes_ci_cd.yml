@@ -4,23 +4,26 @@
 name: Quotes Pipeline
 
 on:
-  # push:
-  #   branches: ["main"]
-  #   paths-ignore:
-  #     - "docs/**"
-  # pull_request:
-  #   branches: ["main"]
-  #   paths-ignore:
-  #     - "docs/**"
-  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths-ignore:
+      - "docs/**"
+  pull_request:
+    branches: ["main"]
+    paths-ignore:
+      - "docs/**"
+  # workflow_dispatch:
 
 permissions:
   contents: read
 
+env:
+  THRESHOLD_TESTS: 80
+
 jobs:
   build:
     env:
-      API_NEY_NINJAS: ${{ secrets.API_KEY_NINJAS }}
+      API_KEY_NINJAS: ${{ secrets.API_KEY_NINJAS }}
     runs-on: ubuntu-latest
 
     steps:
@@ -42,13 +45,9 @@ jobs:
         run: |
           poetry install --with dev
 
-      - name: Check what I have available
+      - name: Run Tests - Pytest and Coverage
         run: |
-          echo $(ls)
-
-      - name: Run Pytest and Coverage
-        run: |
-          poetry run pytest --cov=quotes --cov-report=term-missing --cov-fail-under=80 tests/
+          poetry run pytest --cov=quotes --cov-report=term-missing --cov-fail-under=$THRESHOLD_TESTS tests/
 
   deploy:
     runs-on: ubuntu-latest
