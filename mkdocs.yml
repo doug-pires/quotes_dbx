@@ -40,7 +40,8 @@ extra:
       link: https://www.linkedin.com/in/douglaspiresm/
   # Jinja to include that {{ commands.run_dbx }}
   commands:
-    run_dbx: poetry run dbx
+    project_example_dbx: "`[dbx](https://dbx.readthedocs.io/en/latest/intro/)`"
+    project_example_dba: "`[Databricks Asset Bundles](https://docs.databricks.com/en/dev-tools/bundles/index.html)`"
 
 markdown_extensions:
   - attr_list

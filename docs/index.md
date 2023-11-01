@@ -4,11 +4,11 @@
 
 Build a **simple** data pipeline that extract famous quotes, process it and save on storage.
 
-- 🎯Goals: Deploy the pipeline into Databricks
+- 🎯Goals: Deploy the pipeline into Databricks using {{ commands.project_example_dbx }}
 - ⚠️ Non-Goals : Be a complex pipeline
 - 🌟 Milestone: Follow best practices and principles
-- 🫂 Main Audience: Other interested engineers and I.
-- 🔥 Bonus : YAML file for CI/CD in GitHub Actions or Azure DevOps
+- 🫂 Main Audience: Jr and Mid Data Enginners, and others interested parties
+- 🔥 Bonus : YAML file for CI/CD in GitHub Actions
 
 ## Requirements
 
@@ -20,7 +20,7 @@ Build a **simple** data pipeline that extract famous quotes, process it and save
 | 4              | Test Coverage be higher than 80%                         |
 | 5              | Use Development Mix Mode ( Notebooks and Python Scripts) |
 | 6              | Self document code using Docstrings                      |
-| 7              | Documentation with MkDocs                                |
+| 7              | Design a Documentation in GitHub Pages                   |
 
 
 ## Design Considerations
@@ -28,7 +28,7 @@ Build a **simple** data pipeline that extract famous quotes, process it and save
 ### Data sources
 It's an API hosted by [API Ninjas]([API Ninjas | Build Real Applications with Real Data (api-ninjas.com)](https://api-ninjas.com/)) and the user should sign up to get an API Key
 
-### Data ingestion
+### Data Ingestion
 Python code to request the quote and each request will get a new random quote. We can consider the  Data Volume small, being not a challenge in that use case.
 
 ### Data Storage
@@ -77,8 +77,8 @@ Out-of-Scope ❌
  - pytest-mock
 
 #### Linters
- - isort
- - black
+ - [isort](https://pypi.org/project/isort/)
+ - [black](https://pypi.org/project/black/)
 #### Documentation
  - mkdocs
  - mkdocs-material
