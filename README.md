@@ -27,16 +27,16 @@ With that said let's dive in... 🏊‍♂️
 
 ## Technology Tools
 
-- `Poetry` for dependency management and packaging.
-- How Databricks stack streamline the process of creating scalable data engineering projects locally IDE ( in my case VSCode ) and run remotely.
-- How dbx and the newest released `Databricks Asset Bundles` makes easy to manipulate Databricks Assets.
-- Delta Live Tables + Autoloader a combination made in heaven.
+- Utilize `Poetry` for dependency management and packaging.
+- Leverage the **Databricks** stack to streamline the process of creating scalable data engineering projects in your local IDE (in my case, VSCode) and running them remotely.
+- Explore how **dbx** and the newest released **Databricks Asset Bundles** make it easy to manipulate Databricks Assets.
+- Experience the powerful combination of **Delta Live Tables** and **Autoloader**, a match made in heaven for data ingestion.
 
 
 To sum up, there is no jack of all trades, always you will need specific tools to accomplish a goal.
 However good principles applied and well solidified, avoid big headaches in the future, be for a change request, add new use cases, transfer of ownership or onboarding a new joiner.
 
-> Check the [Documentation]() in GitHub Pages
+> Check the [Documentation](https://doug-pires.github.io/quotes_dbx/) in GitHub Pages
 
 
 ---
