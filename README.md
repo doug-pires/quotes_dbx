@@ -29,8 +29,7 @@ With that said let's dive in... 🏊‍♂️
 
 - `Poetry` for dependency management and packaging.
 - How Databricks stack streamline the process of creating scalable data engineering projects locally IDE ( in my case VSCode ) and run remotely.
-- How dbx and now they released `Databricks Asset Bundles` makes easy to manipulate Databricks Assets.
-- Github Actions + GitHub the perfect combination to have trustful source code.
+- How dbx and the newest released `Databricks Asset Bundles` makes easy to manipulate Databricks Assets.
 - Delta Live Tables + Autoloader a combination made in heaven.
 
 

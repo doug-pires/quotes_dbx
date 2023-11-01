@@ -47,7 +47,7 @@ For the sake of simplicity will be stored in DBFS
 ### Data Processing
 For further processing we will use [Delta Live Tables]([Configure pipeline settings for Delta Live Tables | Databricks on AWS](https://docs.databricks.com/en/delta-live-tables/settings.html))
 
-- Autoloader will ingest incrementally to a `streaming` Bronze Table, adding some metadata information to track the batch and auditing purposes.
+- [Autoloader](https://learn.microsoft.com/en-us/azure/databricks/ingestion/auto-loader/) will ingest incrementally to a `streaming` Bronze Table, adding some metadata information to track the batch and auditing purposes.
 - Silver table we will hash some columns to uniquely identify a quote.
 - Gold Tables for aggregation and report purposes.
 
