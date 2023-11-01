@@ -25,7 +25,7 @@ def authenticate_databricks() -> WorkspaceClient:
     return w
 
 
-def get_api_key(workspace: WorkspaceClient):
+def get_api_key(workspace: WorkspaceClient) -> str:
     """
     Retrieve an API key from Databricks secrets.
 

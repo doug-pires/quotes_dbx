@@ -26,7 +26,17 @@ Build a **simple** data pipeline that extract famous quotes, process it and save
 ## Design Considerations
 
 ### Data sources
-It's an API hosted by [API Ninjas]([API Ninjas | Build Real Applications with Real Data (api-ninjas.com)](https://api-ninjas.com/)) and the user should sign up to get an API Key
+It's an API hosted by [API Ninjas]([API Ninjas | Build Real Applications with Real Data (api-ninjas.com)](https://api-ninjas.com/)) and the user should sign up to get an API Key.
+
+You can add the API KEY as `secrets` in Databricks-Backed Scope.
+
+The commands:
+```bash
+databricks secrets create-scope SCOPE_NAME
+databricks secrets put-secret SCOPE_NAME SECRET_NAME
+```
+
+Then will prompt a screen to add the secret.
 
 ### Data Ingestion
 Python code to request the quote and each request will get a new random quote. We can consider the  Data Volume small, being not a challenge in that use case.
@@ -57,8 +67,10 @@ Out-of-Scope ❌
 ## Tech Solution
 
 ### Workflow
-- Draw the Architecture
-- Data Assets
+
+#### Architecture
+
+![Architecture](./assets/dbx_or_dba.png)
 
 ### Manage Metadata and Build Process:
 - [Poetry](https://python-poetry.org/)
@@ -70,15 +82,18 @@ Out-of-Scope ❌
  - delta-spark
  - databricks-sdk
  - requests
+
+
 #### Test
- - pytest
+ - [pytest](https://pypi.org/project/pytest/)
  - [chispa]([MrPowers/chispa: PySpark test helper methods with beautiful error messages (github.com)](https://github.com/MrPowers/chispa))
- - pytest-cov
- - pytest-mock
+ - [pytest-cov](https://pypi.org/project/pytest-cov/)
+ - [pytest-mock](https://pypi.org/project/pytest-mock/)
 
 #### Linters
  - [isort](https://pypi.org/project/isort/)
  - [black](https://pypi.org/project/black/)
+
 #### Documentation
  - [mkdocs](https://pypi.org/project/mkdocs/)
  - [mkdocs-material](https://pypi.org/project/mkdocs-material/)

@@ -21,4 +21,4 @@
 ## Integration
 
 ## For API Ninjas
-::: tests.intgration.test_api_ninjas
+::: tests.integration.test_api_ninjas

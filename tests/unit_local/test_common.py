@@ -97,7 +97,7 @@ def test_function_to_extract_metadata_from_dataframe(
 
     Args:
         spark_session: A PySpark session used for DataFrame creation.
-        dummy_data: A fixture providing data and schema.
+        dummy_metadata_data: A fixture providing data and schema with a column as MapType()
         expected_metadata_columns: A fixture containing the metadata columns I want to extract
     """
     schema = dummy_metadata_data[0]
