@@ -11,19 +11,19 @@ With that said let's dive in... 🏊‍♂️
 
 ## What are you going to find here?
 
-- Version-Control everything whenever possible
-- Automation ( Github Actions , pre-commit hooks, Azure DevOps )
-- Function Programming paradigm in Data Engineering projects
-- Python **typing hints** are helpful for future yourself or another developer
-- Use **Docstrings** in Python Functions ( Google or Numpy )
-- Documentation made easy with **MkDocs** + **MkDocs Materials** + Community plugins being deployed to `GitHub Pages`
-- Importance of Design Docs and RFC's for Data Projects.
-- Format your code.A well formatted code + sorted imports are a matter of organization, **Isort** and **Black** do it for us.
-- Importance of Tests and how **Pytest** and their plenty of plugins facilitates our life with `fixture`, `marks`, and `conftest` file
-- Pattern Given-When-Then derived from BDD in Tests Cases
-- Coverage of code with **pytest-cov** and **coverage**
-- DRY Principle ( Avoid repetition in your code )
-- and many more +++
+- Prioritize Version Control.
+- Embrace Automation (e.g., GitHub Actions, pre-commit hooks, Azure DevOps).
+- Apply Functional Programming in Data Engineering projects.
+- Utilize Python **typing hints** for clarity and maintainability.
+- Incorporate **Docstrings** in Python Functions (e.g., Google or Numpy style).
+- Simplify documentation with **MkDocs**, **MkDocs Materials**, and Community plugins, deployed on **GitHub Pages**.
+- Recognize the Importance of **Design Docs** and **RFCs** in Data Projects.
+- Maintain well-formatted code with sorted imports (**Isort** and **Black**/**Blue** can help).
+- Stress the Importance of Testing, leveraging **Pytest** and its plugins for `fixtures`, `markers`, and `conftest` files.
+- Implement the **Given-When-Then** pattern derived from **Behavior-Driven Development (BDD)** in test cases.
+- Monitor code coverage with **pytest-cov** and **coverage** tools.
+- Follow the **DRY Principle** (Don't Repeat Yourself) to avoid redundancy in your code.
+- And many more +++
 
 ## Technology Tools
 
