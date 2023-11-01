@@ -8,6 +8,7 @@ nav:
   - Logging Configuration: logging.md
   - Common Functions: common_functions.md
   - Use Case Functions: use_case_functions.md
+  - Tests: tests.md
   - References: references.md
   - Curiosities: curiosity.md
 
@@ -40,8 +41,8 @@ extra:
       link: https://www.linkedin.com/in/douglaspiresm/
   # Jinja to include that {{ commands.run_dbx }}
   commands:
-    project_example_dbx: "`[dbx](https://dbx.readthedocs.io/en/latest/intro/)`"
-    project_example_dba: "`[Databricks Asset Bundles](https://docs.databricks.com/en/dev-tools/bundles/index.html)`"
+    project_example_dbx: "[dbx](https://dbx.readthedocs.io/en/latest/intro/)"
+    project_example_dba: "[Databricks Asset Bundles](https://docs.databricks.com/en/dev-tools/bundles/index.html)"
 
 markdown_extensions:
   - attr_list

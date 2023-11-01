@@ -80,6 +80,6 @@ Out-of-Scope ❌
  - [isort](https://pypi.org/project/isort/)
  - [black](https://pypi.org/project/black/)
 #### Documentation
- - mkdocs
- - mkdocs-material
+ - [mkdocs](https://pypi.org/project/mkdocs/)
+ - [mkdocs-material](https://pypi.org/project/mkdocs-material/)
 
