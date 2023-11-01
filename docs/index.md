@@ -4,7 +4,7 @@
 
 Build a **simple** data pipeline that extract famous quotes, process it and save on storage.
 
-- 🎯Goals: Deploy the pipeline into Databricks using {{ commands.project_example_dbx }}
+- 🎯Goals: Deploy **Delta Live Tables** & **Workflow** pipeline into Databricks using {{ commands.project_example_dbx }}
 - ⚠️ Non-Goals : Be a complex pipeline
 - 🌟 Milestone: Follow best practices and principles
 - 🫂 Main Audience: Jr and Mid Data Enginners, and others interested parties

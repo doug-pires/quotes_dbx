@@ -137,5 +137,4 @@ def main():  # pragma: no cover
     w = authenticate_databricks()
     API_KEY = get_api_key(workspace=w)
     quote = extract_quote(API_KEY=API_KEY)
-    print(quote)
     save_to_storage(workspace=w, path_dbfs=path_landing_quotes_dbx, data=quote)
