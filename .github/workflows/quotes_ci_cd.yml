@@ -12,11 +12,10 @@ on:
       - "*README.md"
   pull_request:
     branches: ["main"]
-    # paths-ignore:
+    paths-ignore: *path_ignore
     #   - "docs/**"
     #   - "*mkdocs.yml"
     #   - "*README.md"
-    <<: *path_ignore
   workflow_dispatch:
 
 permissions:
