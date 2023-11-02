@@ -7,7 +7,7 @@ In accordance with the **"Pragmatic Starter Kit"** outlined in "The Pragmatic Pr
 2. Regression Testing
 3. Full Automation
 
-With that said let's dive in... 🏊‍♂️
+With that said let's dive in...🏊‍♂️
 
 ## What are you going to find here?
 
