@@ -8,14 +8,14 @@ on:
     branches: ["main"]
     paths-ignore:
       - "docs/**"
-      - "*mkdocs.yml"
-      - "*README.md"
+      - "**/README.md"
+      - "**/mkdocs.yml"
   pull_request:
     branches: ["main"]
     paths-ignore:
       - "docs/**"
-      - "*mkdocs.yml"
-      - "*README.md"
+      - "**/README.md"
+      - "**/mkdocs.yml"
   workflow_dispatch:
 
 permissions:
