@@ -4,7 +4,7 @@ repo_name: doug-pires/quotes_dbx
 edit_uri: /tree/main/docs
 
 nav:
-  - Home: index.md
+  - The Big Picture: index.md
   - Logging Configuration: logging.md
   - Common Functions: common_functions.md
   - Use Case Functions: use_case_functions.md
