@@ -15,7 +15,7 @@ theme:
   name: material
   palette:
     scheme: default
-    primary: blue grey
+    primary: black
     accent: cyan
   logo: &logo assets/quotes_logo.png
   favicon: *logo
