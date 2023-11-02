@@ -20,6 +20,7 @@ With that said let's dive in... 🏊‍♂️
 - Recognize the Importance of **Design Docs** and **RFCs** in Data Projects.
 - Maintain well-formatted code with sorted imports (**Isort** and **Black**/**Blue** can help).
 - Stress the Importance of Testing, leveraging **Pytest** and its plugins for `fixtures`, `markers`, and `conftest` files.
+- Use the library `chispa` to test `pyspark` dataframes
 - Implement the **Given-When-Then** pattern derived from **Behavior-Driven Development (BDD)** in test cases.
 - Monitor code coverage with **pytest-cov** and **coverage** tools.
 - Follow the **DRY Principle** (Don't Repeat Yourself) to avoid redundancy in your code.
