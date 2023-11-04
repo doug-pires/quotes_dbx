@@ -1,5 +1,8 @@
 # Welcome
 
+> dbx portfolio ( this repo )
+> dab portfolio [check the repo here](https://github.com/doug-pires/quotes_dab)
+
 I trust that you can glean valuable insights from this portfolio and apply them to real-world projects. Within these materials, I have endeavored to present essential principles, best practices, and guidelines that prove beneficial when engaged in project development as a Data Engineer, Data Analyst, or Analytics Engineer.
 
 In accordance with the **"Pragmatic Starter Kit"** outlined in "The Pragmatic Programmer" book:
@@ -71,6 +74,6 @@ However good principles applied and well solidified, avoid big headaches in the 
 
 
 
-# Everything showed in the images, you can find on the repo and more nitty-gritty details in documentation
+# Everything showed in the images, you can find on the repo and more nitty-gritty details in [documentation](https://doug-pires.github.io/quotes_dbx/)
 # Enjoy  💕 💞
 
