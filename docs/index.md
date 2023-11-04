@@ -15,7 +15,7 @@ Build a **simple** data pipeline that extract famous quotes, process it and save
 | Requirement No | Requirement Summary                                      |
 | -------------- | -------------------------------------------------------- |
 | 1              | Use dbx                                                  |
-| 2              | Use dba (Databricks Asset Bundles)                       |
+| 2              | Use dab (Databricks Asset Bundles)                       |
 | 3              | Apply Unit Testing on Python Code                        |
 | 4              | Test Coverage be higher than 80%                         |
 | 5              | Use Development Mix Mode ( Notebooks and Python Scripts) |
@@ -70,12 +70,13 @@ Out-of-Scope ❌
 
 #### Architecture
 
-![Architecture](./assets/dbx_or_dba.png)
+![Architecture](./assets/dbx_or_dab.png)
+
 
 ### Manage Metadata and Build Process:
 - [Poetry](https://python-poetry.org/)
 - [dbx](https://dbx.readthedocs.io/en/latest/)
-- [Databricks Asset Bundles]([What are Databricks Asset Bundles? | Databricks on AWS](https://docs.databricks.com/en/dev-tools/bundles/index.html))  *check the repo here*
+- [Databricks Asset Bundles]([What are Databricks Asset Bundles? | Databricks on AWS](https://docs.databricks.com/en/dev-tools/bundles/index.html)) :octocat:  [check the repo here](https://github.com/doug-pires/quotes_dab)
 
 ### Python Libraries:
  - pyspark

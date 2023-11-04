@@ -41,7 +41,7 @@ extra:
   # Jinja to include that {{ commands.run_dbx }}
   commands:
     project_example_dbx: "[dbx](https://dbx.readthedocs.io/en/latest/intro/)"
-    project_example_dba: "[Databricks Asset Bundles](https://docs.databricks.com/en/dev-tools/bundles/index.html)"
+    project_example_dab: "[Databricks Asset Bundles](https://docs.databricks.com/en/dev-tools/bundles/index.html)"
 
 markdown_extensions:
   - attr_list
