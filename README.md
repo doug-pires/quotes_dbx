@@ -1,6 +1,8 @@
 # Welcome
 
 > dbx portfolio ( this repo )
+
+
 > dab portfolio [check the repo here](https://github.com/doug-pires/quotes_dab)
 
 I trust that you can glean valuable insights from this portfolio and apply them to real-world projects. Within these materials, I have endeavored to present essential principles, best practices, and guidelines that prove beneficial when engaged in project development as a Data Engineer, Data Analyst, or Analytics Engineer.
