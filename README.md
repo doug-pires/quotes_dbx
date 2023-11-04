@@ -1,6 +1,7 @@
 # Welcome
 
 > dbx portfolio ( this repo )
+> Check the [Documentation](https://doug-pires.github.io/quotes_dbx/) in GitHub Pages
 
 
 > dab portfolio [check the repo here](https://github.com/doug-pires/quotes_dab)
@@ -42,7 +43,7 @@ With that said let's dive in...🏊‍♂️
 To sum up, there is no jack of all trades, always you will need specific tools to accomplish a goal.
 However good principles applied and well solidified, avoid big headaches in the future, be for a change request, add new use cases, transfer of ownership or onboarding a new joiner.
 
-> Check the [Documentation](https://doug-pires.github.io/quotes_dbx/) in GitHub Pages
+
 
 
 ---
