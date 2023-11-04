@@ -7,6 +7,10 @@
 ## DAB Porfolio
 - Repo: [check the repo here](https://github.com/doug-pires/quotes_dab)
 
+---
+
+# Purpose
+
 I trust that you can glean valuable insights from this portfolio and apply them to real-world projects. Within these materials, I have endeavored to present essential principles, best practices, and guidelines that prove beneficial when engaged in project development as a Data Engineer, Data Analyst, or Analytics Engineer.
 
 In accordance with the **"Pragmatic Starter Kit"** outlined in "The Pragmatic Programmer" book:
