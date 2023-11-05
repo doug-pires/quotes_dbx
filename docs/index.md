@@ -88,7 +88,7 @@ Out-of-Scope ❌
 
 #### Test
  - [pytest](https://pypi.org/project/pytest/)
- - [chispa]([MrPowers/chispa: PySpark test helper methods with beautiful error messages (github.com)](https://github.com/MrPowers/chispa))
+ - [chispa]([MrPowers/chispa: PySpark test helper methods with beautiful error messages ( github.com )](https://github.com/MrPowers/chispa))
  - [pytest-cov](https://pypi.org/project/pytest-cov/)
  - [pytest-mock](https://pypi.org/project/pytest-mock/)
 
