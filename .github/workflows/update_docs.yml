@@ -30,7 +30,7 @@ jobs:
 
       - name: Install documentation dependencies
         run: |
-          poetry install --with doc
+          poetry install --only doc
 
       - name: Update Github Pages
         run: |
