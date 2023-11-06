@@ -28,6 +28,10 @@ jobs:
         run: |
           pip install poetry==1.5.1
 
+      - name: Git Fetch
+        run: |
+          git fetch
+
       - name: Install documentation dependencies
         run: |
           poetry install --only doc
