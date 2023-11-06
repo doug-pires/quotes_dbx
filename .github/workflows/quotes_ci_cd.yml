@@ -8,14 +8,14 @@ on:
     branches: ["main"]
     paths-ignore:
       - "docs/**"
-      - ".github/workflows/*docs"
+      - "./.github/workflows/*docs"
       - "README.md"
       - "mkdocs.yml"
   pull_request:
     branches: ["main"]
     paths-ignore:
       - "docs/**"
-      - ".github/workflows/*docs"
+      - "./.github/workflows/*docs"
       - "README.md"
       - "mkdocs.yml"
   workflow_dispatch:
